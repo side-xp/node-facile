@@ -38,6 +38,7 @@
   "scripts": {
     "prebuild": "node -e \"fs.rmSync('./dist',{recursive:true,force:true});\"",
     "build": "tsc && vite build",
+    "build-docs": "npx typedoc ./src --name \"Facile.js\" --groupReferencesByType",
     "prepack": "npm run build && node -e \"import('./scripts/pack.mjs').then(pack => pack.copyDistToRootFolder())\"",
     "postpack": "node -e \"import('./scripts/pack.mjs').then(pack => pack.deleteOutputFilesFromRootFolder())\"",
     "test": "node ./tests/test.ts"
