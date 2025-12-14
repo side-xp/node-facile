@@ -38,7 +38,7 @@
   "scripts": {
     "prebuild": "node -e \"fs.rmSync('./dist',{recursive:true,force:true});\" && node ./scripts/build.mjs",
     "build": "tsc && vite build",
-    "build-docs": "npx typedoc",
+    "build-docs": "npm run prebuild && npx typedoc",
     "prepack": "npm run build && node -e \"import('./scripts/pack.mjs').then(pack => pack.copyDistToRootFolder())\"",
     "postpack": "node -e \"import('./scripts/pack.mjs').then(pack => pack.deleteOutputFilesFromRootFolder())\"",
     "test": "node ./tests/test.ts"
