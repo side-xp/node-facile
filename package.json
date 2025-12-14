@@ -1,0 +1,50 @@
+{
+  "name": "@side-xp/facile",
+  "version": "0.0.2",
+  "description": "Lightweight JavaScript framework just to make your scripts clearer and simpler.",
+  "keywords": [
+    "js",
+    "stdlib",
+    "util",
+    "helper",
+    "easy",
+    "simple"
+  ],
+  "files": [
+    "facile.cjs.js",
+    "facile.cjs.js.map",
+    "facile.es.d.ts",
+    "facile.es.js",
+    "facile.es.js.map",
+    "facile.umd.js",
+    "facile.umd.js.map",
+    "CHANGELOG.md"
+  ],
+  "homepage": "https://github.com/side-xp/node-facile#readme",
+  "bugs": {
+    "url": "https://github.com/side-xp/node-facile/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/side-xp/node-facile.git"
+  },
+  "license": "MIT",
+  "author": "Hubert GROSSIN",
+  "type": "module",
+  "main": "facile.cjs.js",
+  "module": "facile.es.js",
+  "unpkg": "facile.umd.js",
+  "jsdelivr": "facile.umd.js",
+  "scripts": {
+    "prebuild": "node -e \"fs.rmSync('./dist',{recursive:true,force:true});\"",
+    "build": "tsc && vite build",
+    "prepack": "npm run build && node -e \"import('./scripts/pack.mjs').then(pack => pack.copyDistToRootFolder())\"",
+    "postpack": "node -e \"import('./scripts/pack.mjs').then(pack => pack.deleteOutputFilesFromRootFolder())\""
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.7",
+    "vite-plugin-dts": "^4.5.4"
+  }
+}
