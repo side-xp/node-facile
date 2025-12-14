@@ -1,0 +1,98 @@
+import { getElement } from './dom';
+
+/**
+ * Represents a function to use as callback for an "onclick" event.
+ */
+export type ClickCallback = (e: PointerEvent) => void;
+
+/**
+ * Gets the first element in the page that match the given CSS selectors, and add a given callback as "click" event listener.
+ * @param selectors The CSS selectors to match.
+ * @param callback The function to call when the element is clicked.
+ * @returns Returns true if the callback has been registered successfully.
+ * @see {@link https://developer.mozilla.org/docs/Web/API/Element/click_event|MDN - Element.click event}
+ */
+export function onClick<E extends HTMLElement>(selectors: string, callback: ClickCallback): boolean;
+
+/**
+ * Adds a given callback as "click" event listener.
+ * @param element The element for which the callback will be registered.
+ * @param callback The function to call when the element is clicked.
+ * @returns Returns true if the callback has been registered successfully.
+ * @see {@link https://developer.mozilla.org/docs/Web/API/Element/click_event|MDN - Element.click event}
+ */
+export function onClick<E extends HTMLElement>(element: HTMLElement, callback: ClickCallback): boolean;
+
+/**
+ * Gets the first element in the page that match the given tag name, and add a given callback as "click" event listener.
+ * @param tagName The tag name to match.
+ * @param callback The function to call when the element is clicked.
+ * @returns Returns true if the callback has been registered successfully.
+ * @see {@link https://developer.mozilla.org/docs/Web/API/Element/click_event|MDN - Element.click event}
+ */
+export function onClick<K extends keyof HTMLElementTagNameMap>(tagName: K, callback: ClickCallback): boolean;
+
+export function onClick(selectors: string | HTMLElement, callback: ClickCallback): boolean {
+  const element =
+    selectors instanceof HTMLElement
+      ? selectors
+      : getElement<HTMLElement>(selectors);
+
+  if (!element) {
+    return false;
+  }
+
+  element.addEventListener('click', callback);
+  return true;
+}
+
+/**
+ * Displays a popup with text field inviting the user to type a text.
+ * @param message The message to display in the prompt window.
+ * @param defaultValue The default value to return if the prompt field is left empty.
+ * @returns Returns the answer typed by the user.
+ * @see {@link https://developer.mozilla.org/docs/Web/API/Window/prompt|MDN - Window.prompt()}
+ */
+export function ask(message: string, defaultValue?: string): string | null {
+  const answer = prompt(message, defaultValue);
+  return answer;
+}
+
+/**
+ * Displays a popup with text field inviting the user to type a text, and converts the value into a number.
+ * @param message The message to display in the prompt window.
+ * @param allowDecimals By default, only whole numbers are allowed. If enabled, the user can use dot or comma ('.' or ',') as decimals
+ * separator.
+ * @returns Returns the number typed by the user.
+ * @see {@link https://developer.mozilla.org/docs/Web/API/Window/prompt|MDN - Window.prompt()}
+ */
+export function askNumber(message: string, allowDecimals = false): number | null {
+  let answer = prompt(message);
+  // Stop if the user didn't type anything
+  if (!answer) {
+    return null;
+  }
+
+  answer = answer.replaceAll(',', '.');
+  return allowDecimals
+    ? parseFloat(answer)
+    : parseInt(answer, 10);
+}
+
+/**
+ * Displays a message in a popup with a single "Ok" button.
+ * @param message The message to display in the popup window.
+ * @see {@link https://developer.mozilla.org/docs/Web/API/Window/alert|MDN - Window.alert()}
+ */
+export function say(message: string): void {
+  alert(message);
+}
+
+/**
+ * Displays a message in a popup window with "Ok" and "Cancel" buttons.
+ * @param message The message to display in the popup window.
+ * @returns Returns true if the user has clicked on "Ok", or false if they clicked on "Cancel".
+ */
+export function confirm(message: string): boolean {
+  return window.confirm(message);
+}
