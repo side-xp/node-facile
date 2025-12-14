@@ -1,6 +1,12 @@
 /**
+ * This script contains features related to random calculations.
+ * @module Random
+ */
+
+/**
  * Generates either 0 or 1.
  * @returns Returns the generated number.
+ * @see {@link https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Math/random|MDN - Math.random()}
  */
 export function random(): number;
 
@@ -8,6 +14,7 @@ export function random(): number;
  * Generates a random whole number between 0 and a given value.
  * @param value The value limit (minimum if negative, maximum if positive).
  * @returns Returns the generated whole number.
+ * @see {@link https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Math/random|MDN - Math.random()}
  */
 export function random(value: number): number;
 
@@ -16,6 +23,7 @@ export function random(value: number): number;
  * @param min The minimum possible value (inclusive).
  * @param max The maximum possible value (exclusive).
  * @returns Returns the generated whole number.
+ * @see {@link https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Math/random|MDN - Math.random()}
  */
 export function random(min: number, max: number): number;
 
@@ -48,6 +56,7 @@ export function random(min?: number, max?: number): number {
 /**
  * Generates a random decimal number between 0 and 1.
  * @returns Returns the generated decimal number.
+ * @see {@link https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Math/random|MDN - Math.random()}
  */
 export function randomDecimal(): number;
 
@@ -55,6 +64,7 @@ export function randomDecimal(): number;
  * Generates a random decimal number between 0 and a given value.
  * @param value The value limit (minimum if negative, maximum if positive).
  * @returns Returns the generated decimal number.
+ * @see {@link https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Math/random|MDN - Math.random()}
  */
 export function randomDecimal(value: number): number;
 
@@ -63,6 +73,7 @@ export function randomDecimal(value: number): number;
  * @param min The minimum possible value (inclusive).
  * @param max The maximum possible value (exclusive).
  * @returns Returns the generated decimal number.
+ * @see {@link https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Math/random|MDN - Math.random()}
  */
 export function randomDecimal(min: number, max: number): number;
 

@@ -1,3 +1,8 @@
+/**
+ * This script contains features related to user inputs.
+ * @module Interactions
+ */
+
 import { getElement } from './dom';
 
 /**

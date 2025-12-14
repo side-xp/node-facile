@@ -1,4 +1,9 @@
 /**
+ * This script contains features related to math operations.
+ * @module Maths
+ */
+
+/**
  * Clamps a given value between given minimum and maximum.
  * @param value The value to clamp.
  * @param min The minimum possible value (inclusive).
