@@ -1,10 +1,18 @@
-// This script contains features related to DOM and UI manipulations.
+/**
+ * This script contains features related to DOM and UI manipulations.
+ * @module DOM
+ */
 
 /**
  * Gets the first element in the page that match the given CSS selectors.
  * @param selectors The CSS selectors to match.
  * @returns Returns the found element or null.
  * @see {@link https://developer.mozilla.org/docs/Web/API/Document/querySelector|MDN - Document.querySelector()}
+ * @example
+ * // HTML
+ * <button id="my-button">Click Me!</button>
+ * // JS
+ * const myButton = facile.getElement('#my-button');
  */
 export function getElement<E extends Element>(selectors: string): E | null;
 
@@ -13,6 +21,11 @@ export function getElement<E extends Element>(selectors: string): E | null;
  * @param tagName The tag name of the element to get.
  * @returns Returns the found element or null.
  * @see {@link https://developer.mozilla.org/docs/Web/API/Document/querySelector|MDN - Document.querySelector()}
+ * @example
+ * // HTML
+ * <button>Click Me!</button>
+ * // JS
+ * const myButton = facile.getElement('button');
  */
 export function getElement<K extends keyof HTMLElementTagNameMap>(tagName: K): HTMLElementTagNameMap[K] | null;
 
@@ -29,6 +42,13 @@ export function getElement(selectors: string): Element | null {
  * @param selectors The CSS selectors to match.
  * @returns Returns the list of the found elements, or an empty list if no element match the given selectors.
  * @see {@link https://developer.mozilla.org/docs/Web/API/Document/querySelectorAll|MDN - Document.querySelectorAll()}
+ * @example
+ * // HTML
+ * <div class="block">...</div>
+ * <div class="block">...</div>
+ * <div class="block">...</div>
+ * // JS
+ * const blocks = facile.getAllElements('.block');
  */
 export function getAllElements<E extends Element>(selectors: string): NodeListOf<E>;
 
@@ -37,6 +57,13 @@ export function getAllElements<E extends Element>(selectors: string): NodeListOf
  * @param tagName The tag name of the elements to get.
  * @returns Returns the list of the found elements, or an empty list if no element match the given tag name.
  * @see {@link https://developer.mozilla.org/docs/Web/API/Document/querySelectorAll|MDN - Document.querySelectorAll()}
+ * @example
+ * // HTML
+ * <div>...</div>
+ * <div>...</div>
+ * <div>...</div>
+ * // JS
+ * const blocks = facile.getAllElements('div');
  */
 export function getAllElements<K extends keyof HTMLElementTagNameMap>(tagName: K): NodeListOf<HTMLElementTagNameMap[K]>;
 
@@ -52,8 +79,13 @@ export function getAllElements(selectors: string): NodeListOf<Element> {
  * @param text The text to write in the element.
  * @returns Returns the found element or null.
  * @see {@link https://developer.mozilla.org/docs/Web/API/HTMLElement/innerText|MDN - HTMLElement.innerText}
+ * @example
+ * // HTML
+ * <div id="content">...</div>
+ * // JS
+ * facile.write('#content', 'New content to write');
  */
-export function writeText<E extends HTMLElement>(selectors: string, text: string): E | null;
+export function write<E extends HTMLElement>(selectors: string, text: string): E | null;
 
 /**
  * Overwrites the text node of a given element.
@@ -62,8 +94,14 @@ export function writeText<E extends HTMLElement>(selectors: string, text: string
  * @param text The text to write in the element.
  * @returns Returns the given element itself.
  * @see {@link https://developer.mozilla.org/docs/Web/API/HTMLElement/innerText|MDN - HTMLElement.innerText}
+ * @example
+ * // HTML
+ * <div id="content">...</div>
+ * // JS
+ * const contentDiv = getElement('#content');
+ * facile.write(contentDiv, 'New content to write');
  */
-export function writeText<E extends HTMLElement>(element: HTMLElement, text: string): HTMLElement;
+export function write<E extends HTMLElement>(element: HTMLElement, text: string): HTMLElement;
 
 /**
  * Gets the first element in the page that match the given tag name, and overwrite its text node if it exists.
@@ -72,10 +110,15 @@ export function writeText<E extends HTMLElement>(element: HTMLElement, text: str
  * @param text The text to write in the element.
  * @returns Returns the found element or null.
  * @see {@link https://developer.mozilla.org/docs/Web/API/HTMLElement/innerText|MDN - HTMLElement.innerText}
+ * @example
+ * // HTML
+ * <div>...</div>
+ * // JS
+ * facile.write('div', 'New content to write');
  */
-export function writeText<K extends keyof HTMLElementTagNameMap>(tagName: K, text: string): HTMLElementTagNameMap[K] | null;
+export function write<K extends keyof HTMLElementTagNameMap>(tagName: K, text: string): HTMLElementTagNameMap[K] | null;
 
-export function writeText(selectors: string|HTMLElement, text: string): HTMLElement | null {
+export function write(selectors: string|HTMLElement, text: string): HTMLElement | null {
   const element = selectors instanceof HTMLElement
     ? selectors
     : getElement<HTMLElement>(selectors);
@@ -93,6 +136,13 @@ export function writeText(selectors: string|HTMLElement, text: string): HTMLElem
  * @param html The HTML code to set in the element.
  * @returns Returns the found element or null.
  * @see {@link https://developer.mozilla.org/docs/Web/API/HTMLElement/innerHTML|MDN - HTMLElement.innerHTML}
+ * @example
+ * // HTML
+ * <div id="content">...</div>
+ * // JS
+ * facile.writeHTML(contentDiv, `
+ * <p>New content to write</p>
+ * `);
  */
 export function writeHTML<E extends HTMLElement>(selectors: string, html: string): E | null;
 
@@ -103,6 +153,14 @@ export function writeHTML<E extends HTMLElement>(selectors: string, html: string
  * @param html The HTML code to set in the element.
  * @returns Returns the given element itself.
  * @see {@link https://developer.mozilla.org/docs/Web/API/HTMLElement/innerHTML|MDN - HTMLElement.innerHTML}
+ * @example
+ * // HTML
+ * <div id="content">...</div>
+ * // JS
+ * const contentDiv = getElement('#content');
+ * facile.writeHTML(contentDiv, `
+ * <p>New content to write</p>
+ * `);
  */
 export function writeHTML<E extends HTMLElement>(element: HTMLElement, html: string): HTMLElement;
 
@@ -113,6 +171,13 @@ export function writeHTML<E extends HTMLElement>(element: HTMLElement, html: str
  * @param html The HTML code to set in the element.
  * @returns Returns the found element or null.
  * @see {@link https://developer.mozilla.org/docs/Web/API/HTMLElement/innerHTML|MDN - HTMLElement.innerHTML}
+ * @example
+ * // HTML
+ * <div>...</div>
+ * // JS
+ * facile.writeHTML('div', `
+ * <p>New content to write</p>
+ * `);
  */
 export function writeHTML<K extends keyof HTMLElementTagNameMap>(tagName: K, html: string): HTMLElementTagNameMap[K] | null;
 
@@ -132,26 +197,42 @@ export function writeHTML(selectors: string|HTMLElement, html: string): HTMLElem
  * @param selectors The CSS selectors to match.
  * @returns Returns the content of the found element's text node, or null if the element doesn't exist.
  * @see {@link https://developer.mozilla.org/docs/Web/API/HTMLElement/innerText|MDN - HTMLElement.innerText}
+ * @example
+ * // HTML
+ * <div id="content">Content to read</div>
+ * // JS
+ * console.log(facile.read('#content'));
  */
-export function readText<E extends HTMLElement>(selectors: string): string | null;
+export function read<E extends HTMLElement>(selectors: string): string | null;
 
 /**
  * Gets the content of the text node of the given element.
  * @param element The element to read.
  * @returns Returns the content of the found element's text node, or null if the element doesn't exist.
  * @see {@link https://developer.mozilla.org/docs/Web/API/HTMLElement/innerText|MDN - HTMLElement.innerText}
+ * @example
+ * // HTML
+ * <div id="content">Content to read</div>
+ * // JS
+ * const contentDiv = getElement('#content');
+ * console.log(facile.read(contentDiv));
  */
-export function readText<E extends HTMLElement>(element: HTMLElement): string | null;
+export function read<E extends HTMLElement>(element: HTMLElement): string | null;
 
 /**
  * Gets the first element in the page that match the given tag name, and gets the content of its text node.
  * @param tagName The tag name of the element to read.
  * @returns Returns the content of the found element's text node, or null if the element doesn't exist.
  * @see {@link https://developer.mozilla.org/docs/Web/API/HTMLElement/innerText|MDN - HTMLElement.innerText}
+ * @example
+ * // HTML
+ * <div>Content to read</div>
+ * // JS
+ * console.log(facile.read('div'));
  */
-export function readText<K extends keyof HTMLElementTagNameMap>(tagName: K): string | null;
+export function read<K extends keyof HTMLElementTagNameMap>(tagName: K): string | null;
 
-export function readText(selectors: string|HTMLElement): string | null {
+export function read(selectors: string|HTMLElement): string | null {
   const element = selectors instanceof HTMLElement
     ? selectors
     : getElement<HTMLElement>(selectors);
@@ -163,6 +244,13 @@ export function readText(selectors: string|HTMLElement): string | null {
  * @param selectors The CSS selectors to match.
  * @returns Returns the HTML content of the found element, or null if the element doesn't exist.
  * @see {@link https://developer.mozilla.org/docs/Web/API/HTMLElement/innerHTML|MDN - HTMLElement.innerHTML}
+ * @example
+ * // HTML
+ * <div id="content">
+ *  <p> Content to read</p>
+ * </div>
+ * // JS
+ * console.log(facile.readHTML('#content'));
  */
 export function readHTML<E extends HTMLElement>(selectors: string): string | null;
 
@@ -171,6 +259,14 @@ export function readHTML<E extends HTMLElement>(selectors: string): string | nul
  * @param element The element to read.
  * @returns Returns the HTML content of the given element, or null if the element doesn't exist.
  * @see {@link https://developer.mozilla.org/docs/Web/API/HTMLElement/innerHTML|MDN - HTMLElement.innerHTML}
+ * @example
+ * // HTML
+ * <div id="content">
+ *  <p> Content to read</p>
+ * </div>
+ * // JS
+ * const contentDiv = getElement('#content');
+ * console.log(facile.readHTML(contentDiv));
  */
 export function readHTML<E extends HTMLElement>(element: HTMLElement): string | null;
 
@@ -179,6 +275,13 @@ export function readHTML<E extends HTMLElement>(element: HTMLElement): string | 
  * @param tagName The tag name of the element to read.
  * @returns Returns the HTML content of the found element, or null if the element doesn't exist.
  * @see {@link https://developer.mozilla.org/docs/Web/API/HTMLElement/innerHTML|MDN - HTMLElement.innerHTML}
+ * @example
+ * // HTML
+ * <div>
+ *  <p> Content to read</p>
+ * </div>
+ * // JS
+ * console.log(facile.readHTML('div'));
  */
 export function readHTML<K extends keyof HTMLElementTagNameMap>(tagName: K): string | null;
 
@@ -193,6 +296,11 @@ export function readHTML(selectors: string|HTMLElement): string | null {
  * Gets the first element in the page that match the given CSS selector, and make it visible in the page.
  * @param selectors The CSS selectors to match.
  * @returns Returns true if the element has been found and is now visible.
+ * @example
+ * // HTML
+ * <div id="content" style="display: none">Content to show</div>
+ * // JS
+ * facile.show('#content');
  */
 export function show<E extends HTMLElement>(selectors: string): boolean;
 
@@ -200,6 +308,12 @@ export function show<E extends HTMLElement>(selectors: string): boolean;
  * Makes a given element visible in the page.
  * @param element The element to show.
  * @returns Returns true if the element is now visible.
+ * @example
+ * // HTML
+ * <div id="content" style="display: none">Content to show</div>
+ * // JS
+ * const contentDiv = getElement('#content');
+ * facile.show(contentDiv);
  */
 export function show<E extends HTMLElement>(element: HTMLElement): boolean;
 
@@ -207,6 +321,11 @@ export function show<E extends HTMLElement>(element: HTMLElement): boolean;
  * Gets the first element in the page that match the given tag name, and make it visible in the page.
  * @param tagName The tag name to match.
  * @returns Returns true if the element has been found and is now visible.
+ * @example
+ * // HTML
+ * <div style="display: none">Content to show</div>
+ * // JS
+ * facile.show('div');
  */
 export function show<K extends keyof HTMLElementTagNameMap>(tagName: K): boolean;
 
@@ -230,6 +349,11 @@ export function show(selectors: string|HTMLElement): boolean {
  * @param useSpace By default, this function will apply the style "display: none" to hide the element. If this option is enabled, this
  * function will apply the style "visibility: hidden" instead, hiding the element but letting it occupy some space.
  * @returns Returns true if the element has been found and is now hidden.
+ * @example
+ * // HTML
+ * <div id="content" style="display: block">Content to hide</div>
+ * // JS
+ * facile.hide('#content');
  */
 export function hide<E extends HTMLElement>(selectors: string, useSpace?: boolean): boolean;
 
@@ -239,6 +363,12 @@ export function hide<E extends HTMLElement>(selectors: string, useSpace?: boolea
  * @param useSpace By default, this function will apply the style "display: none" to hide the element. If this option is enabled, this
  * function will apply the style "visibility: hidden" instead, hiding the element but letting it occupy some space.
  * @returns Returns true if the element is now hidden.
+ * @example
+ * // HTML
+ * <div id="content" style="display: block">Content to hide</div>
+ * // JS
+ * const contentDiv = getElement('#content');
+ * facile.hide(contentDiv);
  */
 export function hide<E extends HTMLElement>(element: HTMLElement, useSpace?: boolean): boolean;
 
@@ -248,6 +378,11 @@ export function hide<E extends HTMLElement>(element: HTMLElement, useSpace?: boo
  * @param useSpace By default, this function will apply the style "display: none" to hide the element. If this option is enabled, this
  * function will apply the style "visibility: hidden" instead, hiding the element but letting it occupy some space.
  * @returns Returns true if the element has been found and is now hidden.
+ * @example
+ * // HTML
+ * <div style="display: block">Content to hide</div>
+ * // JS
+ * facile.hide('div');
  */
 export function hide<K extends keyof HTMLElementTagNameMap>(tagName: K, useSpace?: boolean): boolean;
 
@@ -276,6 +411,11 @@ export function hide(selectors: string|HTMLElement, useSpace = false): boolean {
  * @param useSpace By default, this function will apply the style "display: none" to hide the element. If this option is enabled, this
  * function will apply the style "visibility: hidden" instead, hiding the element but letting it occupy some space.
  * @returns Returns true if the element's visibility has changed successfully.
+ * @example <caption>Toggle a div every second</caption>
+ * // HTML
+ * <div id="content">Content to toggle</div>
+ * // JS
+ * setInterval(() => facile.toggle('#content'), 1000);
  */
 export function toggle<E extends HTMLElement>(selectors: string, useSpace?: boolean): boolean;
 
@@ -285,6 +425,12 @@ export function toggle<E extends HTMLElement>(selectors: string, useSpace?: bool
  * @param useSpace By default, this function will apply the style "display: none" to hide the element. If this option is enabled, this
  * function will apply the style "visibility: hidden" instead, hiding the element but letting it occupy some space.
  * @returns Returns true if the element's visibility has changed successfully.
+ * @example <caption>Toggle a div every second</caption>
+ * // HTML
+ * <div id="content">Content to toggle</div>
+ * // JS
+ * const divContent = getElement('#content');
+ * setInterval(() => facile.toggle(divContent), 1000);
  */
 export function toggle<E extends HTMLElement>(element: HTMLElement, useSpace?: boolean): boolean;
 
@@ -294,6 +440,11 @@ export function toggle<E extends HTMLElement>(element: HTMLElement, useSpace?: b
  * @param useSpace By default, this function will apply the style "display: none" to hide the element. If this option is enabled, this
  * function will apply the style "visibility: hidden" instead, hiding the element but letting it occupy some space.
  * @returns Returns true if the element's visibility has changed successfully.
+ * @example <caption>Toggle a div every second</caption>
+ * // HTML
+ * <div>Content to toggle</div>
+ * // JS
+ * setInterval(() => facile.toggle('div'), 1000);
  */
 export function toggle<K extends keyof HTMLElementTagNameMap>(tagName: K, useSpace?: boolean): boolean;
 
@@ -323,6 +474,11 @@ export function toggle(selectors: string|HTMLElement, useSpace = false): boolean
  * @param parentSelectors The CSS selectors to match to identify the parent element.
  * @param index The position at which the new element should be placed in its parent element's hierarchy.
  * @see {@link https://developer.mozilla.org/docs/Web/API/Document/createElement|MDN - Document.createElement()}
+ * @example <caption>Creates a paragraph inside an existing div</caption>
+ * // HTML
+ * <div id="content"></div>
+ * // JS
+ * addElement('p', '#content');
  */
 export function addElement<K extends keyof HTMLElementTagNameMap, E extends HTMLElement>(tagName: K, parentSelectors?: string, index?: number): HTMLElementTagNameMap[K];
 
@@ -332,6 +488,12 @@ export function addElement<K extends keyof HTMLElementTagNameMap, E extends HTML
  * @param parentElement The parent element.
  * @param index The position at which the new element should be placed in its parent element's hierarchy.
  * @see {@link https://developer.mozilla.org/docs/Web/API/Document/createElement|MDN - Document.createElement()}
+ * @example <caption>Creates a paragraph inside an existing div</caption>
+ * // HTML
+ * <div id="content"></div>
+ * // JS
+ * const divContent = getElement('#content');
+ * addElement('p', divContent);
  */
 export function addElement<K extends keyof HTMLElementTagNameMap>(tagName: K, parentElement?: HTMLElement, index?: number): HTMLElementTagNameMap[K];
 
@@ -341,6 +503,11 @@ export function addElement<K extends keyof HTMLElementTagNameMap>(tagName: K, pa
  * @param parentTagName The tag name of the parent element.
  * @param index The position at which the new element should be placed in its parent element's hierarchy.
  * @see {@link https://developer.mozilla.org/docs/Web/API/Document/createElement|MDN - Document.createElement()}
+ * @example <caption>Creates a paragraph inside an existing div</caption>
+ * // HTML
+ * <div></div>
+ * // JS
+ * addElement('p', 'div');
  */
 export function addElement<K extends keyof HTMLElementTagNameMap, KP extends keyof HTMLElementTagNameMap>(childTagName: K, parentTagName?: KP, index?: number): HTMLElementTagNameMap[K];
 
@@ -379,6 +546,14 @@ export function addElement<K extends keyof HTMLElementTagNameMap>(tagName: K, pa
  * @param selectors The CSS selectors to match.
  * @returns Returns true if the selected element exists and has been cleared successfully.
  * @see {@link http://developer.mozilla.org/docs/Web/API/Node/removeChild|MDN - Node.removeChild()}
+ * @example <caption>Clears the HTML content of a div</caption>
+ * // HTML
+ * <div id="content">
+ *  <p>Paragraph 1</p>
+ *  <p>Paragraph 2</p>
+ * </div>
+ * // JS
+ * clear('#content');
  */
 export function clear<E extends HTMLElement>(selectors: string): boolean;
 
@@ -387,6 +562,15 @@ export function clear<E extends HTMLElement>(selectors: string): boolean;
  * @param element The element of which to clear the hierarchy.
  * @returns Returns true if the selected element exists and has been cleared successfully.
  * @see {@link http://developer.mozilla.org/docs/Web/API/Node/removeChild|MDN - Node.removeChild()}
+ * @example <caption>Clears the HTML content of a div</caption>
+ * // HTML
+ * <div id="content">
+ *  <p>Paragraph 1</p>
+ *  <p>Paragraph 2</p>
+ * </div>
+ * // JS
+ * const divContent = getElement('#content');
+ * clear(divContent);
  */
 export function clear<E extends HTMLElement>(element: HTMLElement): boolean;
 
@@ -395,6 +579,14 @@ export function clear<E extends HTMLElement>(element: HTMLElement): boolean;
  * @param tagName The tag name to match.
  * @returns Returns true if the selected element exists and has been cleared successfully.
  * @see {@link http://developer.mozilla.org/docs/Web/API/Node/removeChild|MDN - Node.removeChild()}
+ * @example <caption>Clears the HTML content of a div</caption>
+ * // HTML
+ * <div>
+ *  <p>Paragraph 1</p>
+ *  <p>Paragraph 2</p>
+ * </div>
+ * // JS
+ * clear('div');
  */
 export function clear<K extends keyof HTMLElementTagNameMap>(tagName: K): boolean;
 

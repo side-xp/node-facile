@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Facile JS</title>
+</head>
+<body>
+  <script type="module">
+    import * as facile from '../dist/facile.es.js';
+
+    facile.doAfter(3000, 'test1', () => {
+      console.log('DO AFTER SUCCESS 1');
+    });
+    facile.doAfter(4000, 'test2', () => {
+      console.log('DO AFTER SUCCESS 2');
+    });
+    facile.doAfter(5000, 'test3', () => {
+      console.log('DO AFTER SUCCESS 3');
+    });
+    setTimeout(() => facile.stop('test2'), 2000);
+  </script>
+</body>
+</html>
