@@ -6,6 +6,16 @@
 import { getElement } from './dom';
 
 /**
+ * Represents a field element.
+ */
+export type FieldElement = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+
+/**
+ * Represents the tag name of a field element.
+ */
+export type FieldElementTag = Pick<HTMLElementTagNameMap, 'input' | 'select' | 'textarea'>;
+
+/**
  * Represents a function to use as callback for an "onclick" event.
  */
 export type ClickCallback = (e: PointerEvent) => void;
@@ -132,4 +142,125 @@ export function say(message: string): void {
  */
 export function confirm(message: string): boolean {
   return window.confirm(message);
+}
+
+/**
+ * Gets the first element in the page that match the given CSS selectors, and get the value of that field.
+ * @param selectors The CSS selectors to match.
+ * @returns Returns the value from the found field element, or null if the element doesn't exist or is not a valid field element.
+ * @example
+ * // HTML
+ * <input id="firstname" type="text" name="firstname"/>
+ * // JS
+ * const value = facile.getValue('#firstname');
+ * console.log(value);
+ */
+export function getValue<E extends HTMLElement>(selectors: string): string | null;
+
+/**
+ * Get the value of a given field element.
+ * @param element The field element of which to get the value.
+ * @returns Returns the value from the given field element, or null if the element doesn't exist or is not a valid field element.
+ * @example
+ * // HTML
+ * <input id="firstname" type="text" name="firstname"/>
+ * // JS
+ * const firstnameField = facile.getElement('#firstname'):
+ * const value = facile.getValue(firstnameField);
+ * console.log(value);
+ */
+export function getValue<E extends FieldElement>(element: HTMLElement): string | null;
+
+/**
+ * Gets the first element in the page that match the given tag name, and get the value of that field.
+ * @param selectors The tag name to match.
+ * @returns Returns the value from the found field element, or null if the element doesn't exist or is not a valid field element.
+ * @example
+ * // HTML
+ * <input type="text" name="firstname"/>
+ * // JS
+ * const value = facile.getValue('input');
+ * console.log(value);
+ */
+export function getValue<K extends FieldElementTag>(tagName: K): string | null;
+
+export function getValue(selectors: string | HTMLElement): string | null {
+  const element = selectors instanceof HTMLElement
+    ? selectors
+    : getElement<HTMLElement>(selectors);
+  
+  if (!element) {
+    return null;
+  }
+
+  if (
+    element instanceof HTMLInputElement ||
+    element instanceof HTMLSelectElement ||
+    element instanceof HTMLTextAreaElement
+  ) {
+    return element.value;
+  }
+  else {
+    console.warn(`Failed to get field value: The element ${selectors} is not a valid field element.`);
+    return null;
+  }
+}
+
+/**
+ * Gets the first element in the page that match the given CSS selectors, and set the value of that field.
+ * @param selectors The CSS selectors to match.
+ * @returns Returns true if the element is a valid field element and its value has been assigned successfully.
+ * @example
+ * // HTML
+ * <input id="firstname" type="text" name="firstname"/>
+ * // JS
+ * facile.setValue('#firstname', 'New field value');
+ */
+export function setValue<E extends HTMLElement>(selectors: string, value: string): boolean;
+
+/**
+ * Get the value of a given field element.
+ * @param element The field element of which to get the value.
+ * @returns Returns the value from the given field element, or null if the element doesn't exist or is not a valid field element.
+ * @example
+ * // HTML
+ * <input id="firstname" type="text" name="firstname"/>
+ * // JS
+ * const firstnameField = facile.getElement('#firstname'):
+ * facile.setValue('#firstname', 'New field value');
+ */
+export function setValue<E extends FieldElement>(element: HTMLElement, value: string): boolean;
+
+/**
+ * Gets the first element in the page that match the given tag name, and get the value of that field.
+ * @param selectors The tag name to match.
+ * @returns Returns the value from the found field element, or null if the element doesn't exist or is not a valid field element.
+ * @example
+ * // HTML
+ * <input type="text" name="firstname"/>
+ * // JS
+ * facile.setValue('input', 'New field value');
+ */
+export function setValue<K extends FieldElementTag>(tagName: K, value: string): boolean;
+
+export function setValue(selectors: string | HTMLElement, value: string): boolean {
+  const element = selectors instanceof HTMLElement
+    ? selectors
+    : getElement<HTMLElement>(selectors);
+  
+  if (!element) {
+    return false;
+  }
+
+  if (
+    element instanceof HTMLInputElement ||
+    element instanceof HTMLSelectElement ||
+    element instanceof HTMLTextAreaElement
+  ) {
+    element.value = value;
+    return true;
+  }
+
+  console.warn(`Failed to set field value: The element ${selectors} is not a valid field element.`);
+  return false;
 }

@@ -21,7 +21,7 @@ This example creates new paragraphs in a `div` as you click on a `button`.
   <div id="paragraphs"></div>
 
   <script type="module">
-    import * as facile from '../dist/facile.es.js';
+    import * as facile from 'https://cdn.jsdelivr.net/npm/facilejs/facile.es.js';
 
     facile.onClick('#create-btn', () => {
       const p = facile.addElement('p', '#paragraphs');
@@ -57,7 +57,7 @@ This example creates new paragraphs in a `div` as you click on a `button`.
   </div>
 
   <script type="module">
-    import * as facile from '../dist/facile.es.js';
+    import * as facile from 'https://cdn.jsdelivr.net/npm/facilejs/facile.es.js';
 
     // Declare variables
     let count = 0;
