@@ -2,7 +2,11 @@
   "name": "Facile.js",
   "out": "./typedoc",
   "readme": "./docs/README.md",
-  "projectDocuments": [],
+  "projectDocuments": [
+    "./docs/Examples.md",
+    "./docs/images/example-clicker_game.png",
+    "./docs/images/example-dynamic_elements.png"
+  ],
   "entryPoints": [
     "./src/dom.ts",
     "./src/interaction.ts",

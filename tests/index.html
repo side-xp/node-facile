@@ -3,22 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Test Facile JS</title>
+  <title>Create Elements Dynamically</title>
 </head>
 <body>
+  <button id="create-btn">Create paragraph</button>
+  <div id="paragraphs"></div>
+
   <script type="module">
     import * as facile from '../dist/facile.es.js';
 
-    facile.doAfter(3000, 'test1', () => {
-      console.log('DO AFTER SUCCESS 1');
+    facile.onClick('#create-btn', () => {
+      const p = facile.addElement('p', '#paragraphs');
+      facile.write(p, 'New paragraph!');
     });
-    facile.doAfter(4000, 'test2', () => {
-      console.log('DO AFTER SUCCESS 2');
-    });
-    facile.doAfter(5000, 'test3', () => {
-      console.log('DO AFTER SUCCESS 3');
-    });
-    setTimeout(() => facile.stop('test2'), 2000);
   </script>
 </body>
 </html>
