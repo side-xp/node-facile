@@ -16,6 +16,13 @@ export type ClickCallback = (e: PointerEvent) => void;
  * @param callback The function to call when the element is clicked.
  * @returns Returns true if the callback has been registered successfully.
  * @see {@link https://developer.mozilla.org/docs/Web/API/Element/click_event|MDN - Element.click event}
+ * @example
+ * // HTML
+ * <button id="myButton">Click me!</button>
+ * // JS
+ * facile.onClick('#myButton', () => {
+ *  console.log('Button clicked!');
+ * });
  */
 export function onClick<E extends HTMLElement>(selectors: string, callback: ClickCallback): boolean;
 
@@ -25,6 +32,14 @@ export function onClick<E extends HTMLElement>(selectors: string, callback: Clic
  * @param callback The function to call when the element is clicked.
  * @returns Returns true if the callback has been registered successfully.
  * @see {@link https://developer.mozilla.org/docs/Web/API/Element/click_event|MDN - Element.click event}
+ * @example
+ * // HTML
+ * <button id="myButton">Click me!</button>
+ * // JS
+ * const myButton = getElement('#myButton');
+ * facile.onClick(myButton, () => {
+ *  console.log('Button clicked!');
+ * });
  */
 export function onClick<E extends HTMLElement>(element: HTMLElement, callback: ClickCallback): boolean;
 
@@ -34,6 +49,13 @@ export function onClick<E extends HTMLElement>(element: HTMLElement, callback: C
  * @param callback The function to call when the element is clicked.
  * @returns Returns true if the callback has been registered successfully.
  * @see {@link https://developer.mozilla.org/docs/Web/API/Element/click_event|MDN - Element.click event}
+ * @example
+ * // HTML
+ * <button>Click me!</button>
+ * // JS
+ * facile.onClick('button', () => {
+ *  console.log('Button clicked!');
+ * });
  */
 export function onClick<K extends keyof HTMLElementTagNameMap>(tagName: K, callback: ClickCallback): boolean;
 
@@ -57,6 +79,9 @@ export function onClick(selectors: string | HTMLElement, callback: ClickCallback
  * @param defaultValue The default value to return if the prompt field is left empty.
  * @returns Returns the answer typed by the user.
  * @see {@link https://developer.mozilla.org/docs/Web/API/Window/prompt|MDN - Window.prompt()}
+ * @example
+ * const answer = facile.ask("What's your name?");
+ * console.log(answer);
  */
 export function ask(message: string, defaultValue?: string): string | null {
   const answer = prompt(message, defaultValue);
@@ -70,6 +95,9 @@ export function ask(message: string, defaultValue?: string): string | null {
  * separator.
  * @returns Returns the number typed by the user.
  * @see {@link https://developer.mozilla.org/docs/Web/API/Window/prompt|MDN - Window.prompt()}
+ * @example
+ * const age = facile.ask('How old are you?');
+ * console.log(age);
  */
 export function askNumber(message: string, allowDecimals = false): number | null {
   let answer = prompt(message);
@@ -88,6 +116,8 @@ export function askNumber(message: string, allowDecimals = false): number | null
  * Displays a message in a popup with a single "Ok" button.
  * @param message The message to display in the popup window.
  * @see {@link https://developer.mozilla.org/docs/Web/API/Window/alert|MDN - Window.alert()}
+ * @example
+ * facile.ask('Now you see me!');
  */
 export function say(message: string): void {
   alert(message);
@@ -97,6 +127,8 @@ export function say(message: string): void {
  * Displays a message in a popup window with "Ok" and "Cancel" buttons.
  * @param message The message to display in the popup window.
  * @returns Returns true if the user has clicked on "Ok", or false if they clicked on "Cancel".
+ * @example
+ * facile.confirm('Do you agree?');
  */
 export function confirm(message: string): boolean {
   return window.confirm(message);

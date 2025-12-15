@@ -7,6 +7,9 @@
  * Generates either 0 or 1.
  * @returns Returns the generated number.
  * @see {@link https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Math/random|MDN - Math.random()}
+ * @example
+ * const randomValue = facile.random();
+ * console.log(randomValue);
  */
 export function random(): number;
 
@@ -15,6 +18,9 @@ export function random(): number;
  * @param value The value limit (minimum if negative, maximum if positive).
  * @returns Returns the generated whole number.
  * @see {@link https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Math/random|MDN - Math.random()}
+ * @example
+ * const randomValue = facile.random(10);
+ * console.log(randomValue);
  */
 export function random(value: number): number;
 
@@ -24,6 +30,9 @@ export function random(value: number): number;
  * @param max The maximum possible value (exclusive).
  * @returns Returns the generated whole number.
  * @see {@link https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Math/random|MDN - Math.random()}
+ * @example
+ * const randomValue = facile.random(10, 20 + 1);
+ * console.log(randomValue);
  */
 export function random(min: number, max: number): number;
 
@@ -57,6 +66,9 @@ export function random(min?: number, max?: number): number {
  * Generates a random decimal number between 0 and 1.
  * @returns Returns the generated decimal number.
  * @see {@link https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Math/random|MDN - Math.random()}
+ * @example
+ * const randomValue = facile.randomDecimal();
+ * console.log(randomValue);
  */
 export function randomDecimal(): number;
 
@@ -65,6 +77,9 @@ export function randomDecimal(): number;
  * @param value The value limit (minimum if negative, maximum if positive).
  * @returns Returns the generated decimal number.
  * @see {@link https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Math/random|MDN - Math.random()}
+ * @example
+ * const randomValue = facile.randomDecimal(10);
+ * console.log(randomValue);
  */
 export function randomDecimal(value: number): number;
 
@@ -74,6 +89,9 @@ export function randomDecimal(value: number): number;
  * @param max The maximum possible value (exclusive).
  * @returns Returns the generated decimal number.
  * @see {@link https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Math/random|MDN - Math.random()}
+ * @example
+ * const randomValue = facile.randomDecimal(10, 20);
+ * console.log(randomValue);
  */
 export function randomDecimal(min: number, max: number): number;
 
@@ -101,4 +119,74 @@ export function randomDecimal(min?: number, max?: number): number {
   min = min || 0;
   max = max || 0;
   return Math.random() * (max - min) + min;
+}
+
+/**
+ * Evaluates a given chance value at random on a range.
+ * @param threshold The chance amount from 0.
+ * @param max The maximum random value.
+ * @returns Returns true if the chance value is lower or equal to a random value.
+ * @example <caption>Evaluate 75% chance to attack</caption>
+ * const willAttack = chance(75, 100);
+ * @example <caption>Evaluate 1/3 chance to miss</caption>
+ * const willMiss = chance(1, 3);
+ */
+export function chance(threshold: number, max = 1): boolean {
+  max = Math.abs(max);
+  const randomValue = randomDecimal(0, max);
+  return threshold <= randomValue;
+}
+
+/**
+ * Picks an item at random from a collection.
+ * @param array The collection from which the item will be picked.
+ * @returns Returns the picked item or null if the collection is empty.
+ * @example
+ * const arr = [ 'A', 'B', 'C' ];
+ * const randomItem = facile.pick(arr);
+ * console.log(randomItem);
+ */
+export function pick<T>(array: readonly T[]): T | null;
+
+/**
+ * Picks an item at random from a collection.
+ * @param set The collection from which the item will be picked.
+ * @returns Returns the picked item or null if the collection is empty.
+ * @see {@link https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set|MDN - Set}
+ * @example
+ * const collection = new Set();
+ * collection.add('A');
+ * collection.add('B');
+ * collection.add('C');
+ * const randomItem = facile.pick(collection);
+ * console.log(randomItem);
+ */
+export function pick<T>(set: Set<T>): T | null;
+
+/**
+ * Picks an item at random from a collection.
+ * @param map The collection from which the item will be picked.
+ * @returns Returns the picked item or null if the collection is empty.
+ * @see {@link https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map|MDN - Map}
+ * @example
+ * const collection = new Map();
+ * collection.set(1, 'A');
+ * collection.set(2, 'B');
+ * collection.set(3, 'C');
+ * const randomValue = facile.pick(collection);
+ * console.log(randomValue);
+ */
+export function pick<K, V>(map: Map<K, V>): V | null;
+
+export function pick<T>(collection: Iterable<T>): T | null {
+  const items = collection instanceof Map
+    ? Array.from(collection.values())
+    : Array.from(collection);
+
+  if (items.length <= 0) {
+    return null;
+  }
+
+  const randomIndex = random(items.length);
+  return items[randomIndex];
 }

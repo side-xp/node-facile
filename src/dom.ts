@@ -478,7 +478,7 @@ export function toggle(selectors: string|HTMLElement, useSpace = false): boolean
  * // HTML
  * <div id="content"></div>
  * // JS
- * addElement('p', '#content');
+ * facile.addElement('p', '#content');
  */
 export function addElement<K extends keyof HTMLElementTagNameMap, E extends HTMLElement>(tagName: K, parentSelectors?: string, index?: number): HTMLElementTagNameMap[K];
 
@@ -493,7 +493,7 @@ export function addElement<K extends keyof HTMLElementTagNameMap, E extends HTML
  * <div id="content"></div>
  * // JS
  * const divContent = getElement('#content');
- * addElement('p', divContent);
+ * facile.addElement('p', divContent);
  */
 export function addElement<K extends keyof HTMLElementTagNameMap>(tagName: K, parentElement?: HTMLElement, index?: number): HTMLElementTagNameMap[K];
 
@@ -507,7 +507,7 @@ export function addElement<K extends keyof HTMLElementTagNameMap>(tagName: K, pa
  * // HTML
  * <div></div>
  * // JS
- * addElement('p', 'div');
+ * facile.addElement('p', 'div');
  */
 export function addElement<K extends keyof HTMLElementTagNameMap, KP extends keyof HTMLElementTagNameMap>(childTagName: K, parentTagName?: KP, index?: number): HTMLElementTagNameMap[K];
 
@@ -553,9 +553,9 @@ export function addElement<K extends keyof HTMLElementTagNameMap>(tagName: K, pa
  *  <p>Paragraph 2</p>
  * </div>
  * // JS
- * clear('#content');
+ * facile.empty('#content');
  */
-export function clear<E extends HTMLElement>(selectors: string): boolean;
+export function empty<E extends HTMLElement>(selectors: string): boolean;
 
 /**
  * Removes all the child elements of a given one.
@@ -570,9 +570,9 @@ export function clear<E extends HTMLElement>(selectors: string): boolean;
  * </div>
  * // JS
  * const divContent = getElement('#content');
- * clear(divContent);
+ * facile.empty(divContent);
  */
-export function clear<E extends HTMLElement>(element: HTMLElement): boolean;
+export function empty<E extends HTMLElement>(element: HTMLElement): boolean;
 
 /**
  * Gets the first element in the page that match the given tag name, and removes all its child elements.
@@ -586,11 +586,11 @@ export function clear<E extends HTMLElement>(element: HTMLElement): boolean;
  *  <p>Paragraph 2</p>
  * </div>
  * // JS
- * clear('div');
+ * facile.empty('div');
  */
-export function clear<K extends keyof HTMLElementTagNameMap>(tagName: K): boolean;
+export function empty<K extends keyof HTMLElementTagNameMap>(tagName: K): boolean;
 
-export function clear(selectors: string|HTMLElement): boolean {
+export function empty(selectors: string|HTMLElement): boolean {
   const element = selectors instanceof HTMLElement
     ? selectors
     : getElement<HTMLElement>(selectors);
