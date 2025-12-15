@@ -1,6 +1,6 @@
 {
   "name": "@side-xp/facile",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "Lightweight JavaScript framework just to make your scripts clearer and simpler.",
   "keywords": [
     "js",
@@ -38,7 +38,7 @@
   "scripts": {
     "prebuild": "node -e \"fs.rmSync('./dist',{recursive:true,force:true});\" && node ./scripts/build.mjs",
     "build": "tsc && vite build",
-    "build-docs": "npx typedoc",
+    "build-docs": "npm run prebuild && npx typedoc",
     "prepack": "npm run build && node -e \"import('./scripts/pack.mjs').then(pack => pack.copyDistToRootFolder())\"",
     "postpack": "node -e \"import('./scripts/pack.mjs').then(pack => pack.deleteOutputFilesFromRootFolder())\"",
     "test": "node ./tests/test.ts"

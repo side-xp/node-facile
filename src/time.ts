@@ -1,5 +1,5 @@
 /**
- * This script contains features related to time, date and timers.
+ * Features related to time, date and timers.
  * @module Time
  */
 
@@ -28,6 +28,10 @@ const activeTimers = new Array<TimerId>();
  * @param callback The function to repeat.
  * @returns Returns a unique identifier for the created timer, so you can stop it using {@link stop|stop()}.
  * @see {@link https://developer.mozilla.org/docs/Web/API/Window/setInterval|MDN - Window.setInterval()}
+ * @example <caption>Log a message in console every second</caption>
+ * facile.doEvery(1000, () => {
+ *  console.log('Hey!');
+ * });
  */
 export function doEvery(ms: number, callback: TimerCallback): number;
 
@@ -38,6 +42,11 @@ export function doEvery(ms: number, callback: TimerCallback): number;
  * @param callback The function to repeat.
  * @returns Returns a unique identifier for the created timer, so you can stop it using {@link stop|stop()}, by name or by this id.
  * @see {@link https://developer.mozilla.org/docs/Web/API/Window/setInterval|MDN - Window.setInterval()}
+ * @see {@link https://developer.mozilla.org/docs/Web/API/Window/setInterval|MDN - Window.setInterval()}
+ * @example <caption>Log a message in console every second</caption>
+ * facile.doEvery(1000, 'heyTimer', () => {
+ *  console.log('Hey!');
+ * });
  */
 export function doEvery(ms: number, name: string, callback: TimerCallback): number;
 
@@ -69,6 +78,10 @@ export function doEvery(ms: number, name: string | TimerCallback, callback?: Tim
  * @param callback The function to call.
  * @returns Returns a unique identifier for the created timer, so you can stop it using {@link stop|stop()}.
  * @see {@link https://developer.mozilla.org/docs/Web/API/Window/setTimeout|MDN - Window.setTimeout()}
+ * @example <caption>Wait 1 second and log a message in console</caption>
+ * facile.doAfter(1000, () => {
+ *  console.log('Hey!');
+ * });
  */
 export function doAfter(ms: number, callback: TimerCallback): number;
 
@@ -79,6 +92,10 @@ export function doAfter(ms: number, callback: TimerCallback): number;
  * @param callback The function to call.
  * @returns Returns a unique identifier for the created timer, so you can stop it using {@link stop|stop()}, by name or by that id.
  * @see {@link https://developer.mozilla.org/docs/Web/API/Window/setTimeout|MDN - Window.setTimeout()}
+ * @example <caption>Wait 1 second and log a message in console</caption>
+ * facile.doAfter(1000, 'heyTimer', () => {
+ *  console.log('Hey!');
+ * });
  */
 export function doAfter(ms: number, name: string, callback: TimerCallback): number;
 
@@ -126,15 +143,25 @@ export function doAfter(ms: number, name: string | TimerCallback, callback?: Tim
  * @returns Returns true if the named timer has been stopped successfully, or false if it doesn't exist or was already stopped.
  * @see {@link https://developer.mozilla.org/docs/Web/API/Window/clearInterval|MDN - Window.clearInterval()}
  * @see {@link https://developer.mozilla.org/docs/Web/API/Window/clearTimeout|MDN - Window.clearTimeout()}
+ * @example <caption>Start a named timer, then stop it</caption>
+ * facile.doEvery(1000, 'heyTimer', () => {
+ *  console.log('Hey!');
+ * });
+ * facile.stop('heyTimer');
  */
 export function stop(name: string): boolean;
 
 /**
  * Stops a timer.
  * @param id The unique identifier of the timer.
- * @returns Returns true if the named timer has been stopped successfully, or false if it doesn't exist or was already stopped.
+ * @returns Returns true if the timer has been stopped successfully, or false if it doesn't exist or was already stopped.
  * @see {@link https://developer.mozilla.org/docs/Web/API/Window/clearInterval|MDN - Window.clearInterval()}
  * @see {@link https://developer.mozilla.org/docs/Web/API/Window/clearTimeout|MDN - Window.clearTimeout()}
+ * @example <caption>Start a timer, then stop it</caption>
+ * const heyTimerId = facile.doEvery(1000, () => {
+ *  console.log('Hey!');
+ * });
+ * facile.stop(heyTimerId);
  */
 export function stop(id: number): boolean
 export function stop(id: string|number): boolean {
@@ -159,4 +186,26 @@ export function stop(id: string|number): boolean {
   // Remove the timer from active timers list
   activeTimers.splice(index, 1);
   return true;
+}
+
+/**
+ * Checks if a named timer is running.
+ * @param name The name of the timer to check.
+ * @returns Returns true if the timer exists and is running.
+ */
+export function isRunning(name: string): boolean;
+
+/**
+ * Checks if a timer is running.
+ * @param id The unique identifier of the timer to check.
+ * @returns Returns true if the named timer exists and is running.
+ */
+export function isRunning(id: number): boolean;
+
+export function isRunning(id: string|number): boolean {
+  // Try find timer in active timers list
+  let index = typeof id === 'string'
+    ? activeTimers.findIndex(i => i.name === id)
+    : activeTimers.findIndex(i => i.id === id);
+  return index >= 0;
 }

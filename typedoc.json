@@ -2,14 +2,14 @@
   "name": "Facile.js",
   "out": "./typedoc",
   "readme": "./docs/README.md",
-  "projectDocuments": [
-    "./docs/examples/timers.md"
-  ],
+  "projectDocuments": [],
   "entryPoints": [
     "./src/dom.ts",
     "./src/interaction.ts",
     "./src/math.ts",
     "./src/random.ts",
-    "./src/time.ts"
+    "./src/save.ts",
+    "./src/time.ts",
+    "./src/utils.ts"
   ]
 }

@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.0](https://github.com/side-xp/node-facile/compare/v0.0.4...v0.1.0) (2025-12-15)
+
+
+### Features
+
+* Added misc utilities ([936843a](https://github.com/side-xp/node-facile/commit/936843a403c023092fb37ae92403c854faa74b4f))
+* Added save utilities ([24c18d7](https://github.com/side-xp/node-facile/commit/24c18d78681aec5e8947938d815af68267391de0))
+
 ## [0.0.4](https://github.com/side-xp/node-facile/compare/v0.0.3...v0.0.4) (2025-12-14)
 
 ## 0.0.3 (2025-12-14)
