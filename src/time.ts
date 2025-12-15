@@ -1,5 +1,5 @@
 /**
- * This script contains features related to time, date and timers.
+ * Features related to time, date and timers.
  * @module Time
  */
 

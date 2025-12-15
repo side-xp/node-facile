@@ -1,5 +1,5 @@
 /**
- * This script contains features related to user inputs.
+ * Features related to user inputs.
  * @module Interactions
  */
 

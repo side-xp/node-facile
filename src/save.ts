@@ -1,4 +1,9 @@
 /**
+ * Features related to saving/loading data locally.
+ * @module Save
+ */
+
+/**
  * Saves data locally.
  * @param key The key for retrieving the saved data.
  * @param data The data to save.

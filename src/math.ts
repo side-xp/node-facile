@@ -1,5 +1,5 @@
 /**
- * This script contains features related to math operations.
+ * Features related to math operations.
  * @module Maths
  */
 

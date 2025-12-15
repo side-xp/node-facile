@@ -1,5 +1,5 @@
 /**
- * This script contains features related to random calculations.
+ * Features related to random calculations.
  * @module Random
  */
 
@@ -189,4 +189,21 @@ export function pick<T>(collection: Iterable<T>): T | null {
 
   const randomIndex = random(items.length);
   return items[randomIndex];
+}
+
+/**
+ * Shuffles the items of an array in-place (modifing the source array).
+ * @param array The collection to shuffle.
+ * @example
+ * const arr = [ 'A', 'B', 'C' ];
+ * facile.shuffle(arr);
+ * console.log(arr);
+ */
+export function shuffle<T>(array: T[]): void {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
 }
