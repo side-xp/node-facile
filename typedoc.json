@@ -9,6 +9,7 @@
     "./src/math.ts",
     "./src/random.ts",
     "./src/save.ts",
-    "./src/time.ts"
+    "./src/time.ts",
+    "./src/utils.ts"
   ]
 }
