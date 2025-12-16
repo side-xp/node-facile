@@ -21,7 +21,7 @@ This example creates new paragraphs in a `div` as you click on a `button`.
   <div id="paragraphs"></div>
 
   <script type="module">
-    import * as facile from 'https://cdn.jsdelivr.net/npm/facilejs/facile.es.js';
+    import * as facile from 'https://cdn.jsdelivr.net/npm/facilejs@latest/facile.es.js';
 
     facile.onClick('#create-btn', () => {
       const p = facile.addElement('p', '#paragraphs');
@@ -57,32 +57,34 @@ This example creates new paragraphs in a `div` as you click on a `button`.
   </div>
 
   <script type="module">
-    import * as facile from 'https://cdn.jsdelivr.net/npm/facilejs/facile.es.js';
+    import * as facile from 'https://cdn.jsdelivr.net/npm/facilejs@latest/facile.es.js';
 
-    // Declare variables
-    let count = 0;
-    let gainPerSecond = 0;
+    // Declare variables: we use "state" so we can 
+    let count = facile.state(0);
+    let gainPerSecond = facile.state(0);
 
-    // Increases the count by the given amount, and display the new count value in the page
-    function increaseCount(amount) {
-      count += amount;
-      facile.write('#count', count);
-    }
+    // Whenever the count changes, display it in the page
+    count.onChange((newCount) => {
+      facile.write('#count', newCount);
+    })
+    // Same for the gain per second
+    gainPerSecond.onChange((newCount) => {
+      facile.write('#gain-per-second', newCount);
+    })
 
     // Increase count by "gainPerSecond" every second
     facile.doEvery(1000, () => {
-      increaseCount(gainPerSecond);
+      count.value += gainPerSecond
     });
 
     // When the "Click me!" button is clicked, increase the count
     facile.onClick('#clicker-btn', () => {
-      increaseCount(1);
+      count.value += 1
     });
 
-    // When the "Upgrade" button is clicked, increase the "gain per second" and display that value in the page
+    // When the "Upgrade" button is clicked
     facile.onClick('#upgrade-btn', () => {
-      gainPerSecond += 1;
-      facile.write('#gain-per-second', gainPerSecond);
+      gainPerSecond.value += 1;
     });
   </script>
 </body>

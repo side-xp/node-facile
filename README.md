@@ -12,7 +12,7 @@ Note that the `facile` object is stored in `window`, so it's available globally.
 
 ```html
 <head>
-  <script src="https://cdn.jsdelivr.net/npm/facilejs/facile.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/facilejs@latest/facile.umd.js"></script>
 </head>
 <body>
   <button id="generate">Roll</button>
@@ -34,7 +34,7 @@ You can import this library as a module into an HTML page from *jsDelivr* CDN, u
   <button id="generate">Roll</button>
   <p>Value: <span id="value">1</span></p>
   <script type="module">
-    import * as facile from 'https://cdn.jsdelivr.net/npm/facilejs/facile.es.js';
+    import * as facile from 'https://cdn.jsdelivr.net/npm/facilejs@latest/facile.es.js';
     facile.onClick('#generate', () => {
       facile.write('#value', facile.random(1, 6 + 1));
     });
