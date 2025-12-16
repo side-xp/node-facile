@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.3](https://github.com/side-xp/node-facile/compare/v0.1.2...v0.1.3) (2025-12-16)
+
+
+### Features
+
+* Added media utilities for playing sound ([8b7ec5a](https://github.com/side-xp/node-facile/commit/8b7ec5ae2fdc52936ff54e8baaa2982b14b1b0b9))
+
 ## [0.1.2](https://github.com/side-xp/node-facile/compare/v0.1.1...v0.1.2) (2025-12-16)
 
 

@@ -14,6 +14,7 @@ export type TimerCallback = () => void;
 interface TimerId {
   name?: string;
   id: number;
+  jsId: number;
   isTimeout: boolean;
 }
 
@@ -21,6 +22,7 @@ interface TimerId {
  * The list of all the timers started from this utility.
  */
 const activeTimers = new Array<TimerId>();
+let latestId = 0;
 
 /**
  * Repeats a given function by a given time interval (in milliseconds).
@@ -64,7 +66,8 @@ export function doEvery(ms: number, name: string | TimerCallback, callback?: Tim
 
   const timerId: TimerId = {
     name: name || undefined,
-    id: setInterval(callback as TimerHandler, ms),
+    id: ++latestId,
+    jsId: setInterval(callback as TimerHandler, ms),
     isTimeout: false
   };
 
@@ -130,7 +133,8 @@ export function doAfter(ms: number, name: string | TimerCallback, callback?: Tim
   // Create active timer entry
   activeTimers.push({
     name: name || undefined,
-    id,
+    jsId: id,
+    id: ++latestId,
     isTimeout: true
   });
 
@@ -149,7 +153,7 @@ export function doAfter(ms: number, name: string | TimerCallback, callback?: Tim
  * });
  * facile.stop('heyTimer');
  */
-export function stop(name: string): boolean;
+export function stopTimer(name: string): boolean;
 
 /**
  * Stops a timer.
@@ -163,8 +167,9 @@ export function stop(name: string): boolean;
  * });
  * facile.stop(heyTimerId);
  */
-export function stop(id: number): boolean
-export function stop(id: string|number): boolean {
+export function stopTimer(id: number): boolean
+
+export function stopTimer(id: string|number): boolean {
   // Try find timer in active timers list
   let index = typeof id === 'string'
     ? activeTimers.findIndex(i => i.name === id)
@@ -178,10 +183,10 @@ export function stop(id: string|number): boolean {
 
   // Stop the timer
   if (activeTimers[index].isTimeout) {
-    clearTimeout(activeTimers[index].id);
+    clearTimeout(activeTimers[index].jsId);
   }
   else {
-    clearInterval(activeTimers[index].id);
+    clearInterval(activeTimers[index].jsId);
   }
   // Remove the timer from active timers list
   activeTimers.splice(index, 1);
