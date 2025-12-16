@@ -11,8 +11,10 @@
     "./src/dom.ts",
     "./src/interaction.ts",
     "./src/math.ts",
+    "./src/media.ts",
     "./src/random.ts",
     "./src/save.ts",
+    "./src/state.ts",
     "./src/time.ts",
     "./src/utils.ts"
   ]

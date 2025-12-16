@@ -54,7 +54,7 @@ export function isBoolean(value: any): boolean {
 
 /**
  * Checks if a given string is invalid or empty.
- * @param value The string to check.
+ * @param text The string to check.
  * @returns Returns true if the given string is not valid or empty.
  */
 export function isEmpty(text: string | undefined | null): boolean {

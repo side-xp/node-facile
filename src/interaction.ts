@@ -106,7 +106,7 @@ export function onChange(selectors: string, callback: ChangeCallback): boolean;
 
 /**
  * Adds a given callback as "change" event listener to a given field element.
- * @param selectors The CSS selectors to match.
+ * @param element The CSS selectors to match.
  * @param callback The function to call when the value of the element changes.
  * @returns Returns true if the callback has been registered successfully.
  * @see {@link https://developer.mozilla.org/docs/Web/API/Element/change_event|MDN - Element.change event}
@@ -123,7 +123,7 @@ export function onChange<E extends FieldElement>(element: E, callback: ChangeCal
 
 /**
  * Gets the first element in the page that match the given tag name, and add a given callback as "change" event listener.
- * @param selectors The tag name to match.
+ * @param tagName The tag name to match.
  * @param callback The function to call when the value of the element changes.
  * @returns Returns true if the callback has been registered successfully.
  * @see {@link https://developer.mozilla.org/docs/Web/API/Element/change_event|MDN - Element.change event}
@@ -252,7 +252,7 @@ export function getValue<E extends FieldElement>(element: E): string | null;
 
 /**
  * Gets the first element in the page that match the given tag name, and get the value of that field.
- * @param selectors The tag name to match.
+ * @param tagName The tag name to match.
  * @returns Returns the value from the found field element, or null if the element doesn't exist or is not a valid field element.
  * @example
  * // HTML
@@ -311,7 +311,7 @@ export function setValue<E extends FieldElement>(element: E, value: string): boo
 
 /**
  * Gets the first element in the page that match the given tag name, and get the value of that field.
- * @param selectors The tag name to match.
+ * @param tagName The tag name to match.
  * @returns Returns the value from the found field element, or null if the element doesn't exist or is not a valid field element.
  * @example
  * // HTML

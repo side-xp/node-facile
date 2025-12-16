@@ -28,7 +28,7 @@ let latestId = 0;
  * Repeats a given function by a given time interval (in milliseconds).
  * @param ms The time interval, in milliseconds.
  * @param callback The function to repeat.
- * @returns Returns a unique identifier for the created timer, so you can stop it using {@link stop|stop()}.
+ * @returns Returns a unique identifier for the created timer, so you can stop it using {@link stopTimer|stopTimer()}.
  * @see {@link https://developer.mozilla.org/docs/Web/API/Window/setInterval|MDN - Window.setInterval()}
  * @example <caption>Log a message in console every second</caption>
  * facile.doEvery(1000, () => {
@@ -42,7 +42,7 @@ export function doEvery(ms: number, callback: TimerCallback): number;
  * @param ms The time interval, in milliseconds.
  * @param name The time of the timer to create, so you can identify it easily.
  * @param callback The function to repeat.
- * @returns Returns a unique identifier for the created timer, so you can stop it using {@link stop|stop()}, by name or by this id.
+ * @returns Returns a unique identifier for the created timer, so you can stop it using {@link stopTimer|stopTimer()}, by name or by this id.
  * @see {@link https://developer.mozilla.org/docs/Web/API/Window/setInterval|MDN - Window.setInterval()}
  * @see {@link https://developer.mozilla.org/docs/Web/API/Window/setInterval|MDN - Window.setInterval()}
  * @example <caption>Log a message in console every second</caption>
@@ -79,7 +79,7 @@ export function doEvery(ms: number, name: string | TimerCallback, callback?: Tim
  * Calls a given function after a given delay (in milliseconds).
  * @param ms The delay, in milliseconds.
  * @param callback The function to call.
- * @returns Returns a unique identifier for the created timer, so you can stop it using {@link stop|stop()}.
+ * @returns Returns a unique identifier for the created timer, so you can stop it using {@link stopTimer|stopTimer()}.
  * @see {@link https://developer.mozilla.org/docs/Web/API/Window/setTimeout|MDN - Window.setTimeout()}
  * @example <caption>Wait 1 second and log a message in console</caption>
  * facile.doAfter(1000, () => {
@@ -93,7 +93,7 @@ export function doAfter(ms: number, callback: TimerCallback): number;
  * @param ms The delay, in milliseconds.
  * @param name The time of the timer to create, so you can identify it easily.
  * @param callback The function to call.
- * @returns Returns a unique identifier for the created timer, so you can stop it using {@link stop|stop()}, by name or by that id.
+ * @returns Returns a unique identifier for the created timer, so you can stop it using {@link stopTimer|stopTimer()}, by name or by that id.
  * @see {@link https://developer.mozilla.org/docs/Web/API/Window/setTimeout|MDN - Window.setTimeout()}
  * @example <caption>Wait 1 second and log a message in console</caption>
  * facile.doAfter(1000, 'heyTimer', () => {
