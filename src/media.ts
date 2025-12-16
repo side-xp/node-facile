@@ -20,6 +20,8 @@ const audioSources = new Map<string, HTMLAudioElement[]>();
 * @param multiple By default, this function will reuse the existing audio element if the given file has already been played, stopping it
 * if it's still playing. If enabled and the audio element is still playing, a new one will be created.
 * @param loop If enabled, make the given sound play repeatedly.
+* @example
+* playSound('click.mp3', true, false);
 */
 export function playSound(file: string, multiple = false, loop = false): HTMLAudioElement {
   let audioElements = audioSources.get(file);
