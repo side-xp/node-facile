@@ -469,6 +469,124 @@ export function toggle(selectors: string|HTMLElement, useSpace = false): boolean
 }
 
 /**
+ * Gets the first element in the page that match the given CSS selector, and enable it (or set its opacity to 1 if the element doesn't
+ * support a "disabled" attribute).
+ * @param selectors The CSS selectors to match.
+ * @returns Returns true if the element is valid and has been enabled successfully.
+ * @example
+ * // HTML
+ * <button id="validate" disabled>Validate</button>
+ * // JS
+ * facile.enable('#validate');
+ */
+export function enable<E extends HTMLElement>(selectors: string): boolean;
+
+/**
+ * Enables a given element (or set its opacity to 1 if the element doesn't upport a "disabled" attribute).
+ * @param element The element to enable.
+ * @returns Returns true if the element is valid and has been enabled successfully.
+ * @example
+ * // HTML
+ * <button id="validate" disabled>Validate</button>
+ * // JS
+ * const validateButton = getElement('#validate');
+ * facile.enable(validateButton);
+ */
+export function enable<E extends HTMLElement>(element: HTMLElement): boolean;
+
+/**
+ * Gets the first element in the page that match the given tag name, and enable it (or set its opacity to 1 if the element doesn't
+ * support a "disabled" attribute).
+ * @param tagName The tag name to match.
+ * @returns Returns true if the element is valid and has been enabled successfully.
+ * @example
+ * // HTML
+ * <button disabled>Validate</button>
+ * // JS
+ * facile.enable('button');
+ */
+export function enable<K extends keyof HTMLElementTagNameMap>(tagName: K): boolean;
+
+export function enable(selectors: string|HTMLElement): boolean {
+  const element = selectors instanceof HTMLElement
+    ? selectors
+    : getElement<HTMLElement>(selectors);
+
+  if (!element) {
+    return false;
+  }
+
+  // If the element doesn't have a native "disabled" value
+  if ((element as any).disabled === undefined) {
+    element.style.opacity = '1';
+    element.style.pointerEvents = 'fill';
+  }
+  else {
+    (element as any).disabled = false;
+  }
+  return true;
+}
+
+/**
+ * Gets the first element in the page that match the given CSS selector, and disable it (or set its opacity to 1 if the element doesn't
+ * support a "disabled" attribute).
+ * @param selectors The CSS selectors to match.
+ * @returns Returns true if the element is valid and has been disabled successfully.
+ * @example
+ * // HTML
+ * <button id="validate">Validate</button>
+ * // JS
+ * facile.disable('#validate');
+ */
+export function disable<E extends HTMLElement>(selectors: string): boolean;
+
+/**
+ * Disables a given element (or set its opacity to 1 if the element doesn't upport a "disabled" attribute).
+ * @param element The element to disable.
+ * @returns Returns true if the element is valid and has been disabled successfully.
+ * @example
+ * // HTML
+ * <button id="validate">Validate</button>
+ * // JS
+ * const validateButton = getElement('#validate');
+ * facile.disable(validateButton);
+ */
+export function disable<E extends HTMLElement>(element: HTMLElement): boolean;
+
+/**
+ * Gets the first element in the page that match the given tag name, and disable it (or set its opacity to 1 if the element doesn't
+ * support a "disabled" attribute).
+ * @param tagName The tag name to match.
+ * @returns Returns true if the element is valid and has been disabled successfully.
+ * @example
+ * // HTML
+ * <button>Validate</button>
+ * // JS
+ * facile.disable('button');
+ */
+export function disable<K extends keyof HTMLElementTagNameMap>(tagName: K): boolean;
+
+export function disable(selectors: string|HTMLElement): boolean {
+  const element = selectors instanceof HTMLElement
+    ? selectors
+    : getElement<HTMLElement>(selectors);
+
+  if (!element) {
+    return false;
+  }
+
+  // If the element doesn't have a native "disabled" value
+  if ((element as any).disabled === undefined) {
+    element.style.opacity = '0.5';
+    element.style.pointerEvents = 'none';
+  }
+  else {
+    (element as any).disabled = true;
+  }
+  return true;
+}
+
+/**
  * Creates a new element of the given tag, and insert it into the selected parent element.
  * @param tagName The tag name of the element to create.
  * @param parentSelectors The CSS selectors to match to identify the parent element.
