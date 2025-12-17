@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.5](https://github.com/side-xp/node-facile/compare/v0.1.4...v0.1.5) (2025-12-17)
+
+
+### Features
+
+* DOM enable/disable element ([f6cc54e](https://github.com/side-xp/node-facile/commit/f6cc54ee9d6482f7c120f90c661522fba5c1148f))
+
 ## [0.1.4](https://github.com/side-xp/node-facile/compare/v0.1.3...v0.1.4) (2025-12-16)
 
 
