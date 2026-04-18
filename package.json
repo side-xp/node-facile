@@ -20,14 +20,13 @@
   ],
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     }
   },
+  "main": "./dist/index.js",
   "jsdelivr": "./dist/index.iife.js",
   "unpkg": "./dist/index.iife.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "homepage": "https://github.com/side-xp/node-facile#readme",
   "bugs": {
     "url": "https://github.com/side-xp/node-facile/issues"
