@@ -1,4 +1,4 @@
-# @side-xp/facilejs
+# Facile JS
 
 Lightweight JavaScript utilities with simple, beginner-friendly features.
 

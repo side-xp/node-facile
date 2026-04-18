@@ -1,5 +1,6 @@
 /**
  * Returns a random integer between 0 and 1 (inclusive).
+ * @overload
  * @returns Either `0` or `1`.
  * @example
  * random() // 0 or 1
@@ -8,7 +9,7 @@ export function random(): number
 
 /**
  * Returns a random integer between `0` and `max` (inclusive).
- * If `max` is negative, this function returns a random integer between `max` and `0`, both inclusive;
+ * If `max` is negative, this function returns a random integer between `max` and `0`, both inclusive.
  * @param max The upper bound if positive, lower bound if negative.
  * @returns A random integer in the range `[0 ; max]` or `[max ; 0]`.
  * @example
@@ -30,9 +31,6 @@ export function random(max: number): number
  */
 export function random(min: number, max: number): number
 
-/**
- * @see {@link https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Math/random | MDN - Math.random()}
- */
 export function random(minOrMax?: number, max?: number): number {
   // If the function is used without argument, return either 0 or 1
   if (minOrMax === undefined) {
