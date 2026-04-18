@@ -9,6 +9,12 @@ export default defineConfig([
     outExtensions: () => ({ js: '.js', dts: '.d.ts' }),
   },
   {
+    entry: 'src/index.ts',
+    format: 'cjs',
+    dts: true,
+    outExtensions: () => ({ js: '.cjs', dts: '.d.cts' }),
+  },
+  {
     clean: true,
     entry: 'src/index.ts',
     format: 'iife',
