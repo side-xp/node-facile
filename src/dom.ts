@@ -3,6 +3,8 @@
  * @module DOM
  */
 
+//#region getElement()
+
 /**
  * Returns the first element matching the given tag name, or `null` if none exists.
  * @param tag The HTML tag name to search for.
@@ -31,6 +33,10 @@ export function getElement<T extends Element = Element>(selector: string): T | n
 export function getElement<T extends Element = Element>(selector: string): T | null {
   return document.querySelector(selector)
 }
+
+//#endregion
+
+//#region getAllElements()
 
 /**
  * Returns all elements matching the given tag name, or an empty array if none exist.
@@ -62,3 +68,256 @@ export function getAllElements<T extends Element = Element>(selector: string): T
 export function getAllElements<T extends Element = Element>(selector: string): T[] {
   return Array.from(document.querySelectorAll(selector))
 }
+
+//#endregion
+
+//#region write()
+
+/**
+ * Sets the text content of the given element.
+ * @param element The target element.
+ * @param text The text to write.
+ * @example
+ * // HTML
+ * <p id="message"></p>
+ * // JS
+ * const el = facile.getElement('#message');
+ * facile.write(el, 'Hello!');
+ */
+export function write(element: HTMLElement, text: string): void
+
+/**
+ * Sets the text content of the first element matching the given tag name.
+ * Does nothing if no element is found.
+ * @param tag The HTML tag name to search for.
+ * @param text The text to write.
+ * @example
+ * // HTML
+ * <p></p>
+ * // JS
+ * facile.write('p', 'Hello!');
+ */
+export function write<K extends keyof HTMLElementTagNameMap>(tag: K, text: string): void
+
+/**
+ * Sets the text content of the first element matching the given CSS selector.
+ * Does nothing if no element is found.
+ * @param selector A CSS selector string.
+ * @param text The text to write.
+ * @example
+ * // HTML
+ * <p id="message"></p>
+ * // JS
+ * facile.write('#message', 'Hello!');
+ */
+export function write(selector: string, text: string): void
+
+export function write(target: HTMLElement | string, text: string): void {
+  if (typeof target === 'string') {
+    const el = document.querySelector<HTMLElement>(target)
+    if (el) el.innerText = text
+  } else {
+    target.innerText = text
+  }
+}
+
+//#endregion
+
+//#region writeHTML()
+
+/**
+ * Sets the HTML content of the given element.
+ * @param element The target element.
+ * @param html The HTML string to write.
+ * @example
+ * // HTML
+ * <div id="container"></div>
+ * // JS
+ * const el = facile.getElement('#container');
+ * facile.writeHTML(el, '<p>Hello!</p>');
+ */
+export function writeHTML(element: HTMLElement, html: string): void
+
+/**
+ * Sets the HTML content of the first element matching the given tag name.
+ * Does nothing if no element is found.
+ * @param tag The HTML tag name to search for.
+ * @param html The HTML string to write.
+ * @example
+ * // HTML
+ * <div></div>
+ * // JS
+ * facile.writeHTML('div', '<p>Hello!</p>');
+ */
+export function writeHTML<K extends keyof HTMLElementTagNameMap>(tag: K, html: string): void
+
+/**
+ * Sets the HTML content of the first element matching the given CSS selector.
+ * Does nothing if no element is found.
+ * @param selector A CSS selector string.
+ * @param html The HTML string to write.
+ * @example
+ * // HTML
+ * <div id="container"></div>
+ * // JS
+ * facile.writeHTML('#container', '<p>Hello!</p>');
+ */
+export function writeHTML(selector: string, html: string): void
+
+export function writeHTML(target: HTMLElement | string, html: string): void {
+  if (typeof target === 'string') {
+    const el = document.querySelector<HTMLElement>(target)
+    if (el) el.innerHTML = html
+  } else {
+    target.innerHTML = html
+  }
+}
+
+//#endregion
+
+//#region show()
+
+/**
+ * Makes the given element visible by removing the `hidden` attribute.
+ * @param element The target element.
+ * @example
+ * // HTML
+ * <p id="message" hidden>Hello!</p>
+ * // JS
+ * const el = facile.getElement('#message');
+ * facile.show(el);
+ */
+export function show(element: HTMLElement): void
+
+/**
+ * Makes the first element matching the given tag name visible by removing the `hidden` attribute.
+ * Does nothing if no element is found.
+ * @param tag The HTML tag name to search for.
+ * @example
+ * // HTML
+ * <p hidden>Hello!</p>
+ * // JS
+ * facile.show('p');
+ */
+export function show<K extends keyof HTMLElementTagNameMap>(tag: K): void
+
+/**
+ * Makes the first element matching the given CSS selector visible by removing the `hidden` attribute.
+ * Does nothing if no element is found.
+ * @param selector A CSS selector string.
+ * @example
+ * // HTML
+ * <p id="message" hidden>Hello!</p>
+ * // JS
+ * facile.show('#message');
+ */
+export function show(selector: string): void
+
+export function show(target: HTMLElement | string): void {
+  if (typeof target === 'string') {
+    const el = document.querySelector<HTMLElement>(target)
+    if (el) el.hidden = false
+  } else {
+    target.hidden = false
+  }
+}
+
+//#endregion
+
+//#region hide()
+
+/**
+ * Hides the given element by setting the `hidden` attribute.
+ * @param element The target element.
+ * @example
+ * // HTML
+ * <p id="message">Hello!</p>
+ * // JS
+ * const el = facile.getElement('#message');
+ * facile.hide(el);
+ */
+export function hide(element: HTMLElement): void
+
+/**
+ * Hides the first element matching the given tag name by setting the `hidden` attribute.
+ * Does nothing if no element is found.
+ * @param tag The HTML tag name to search for.
+ * @example
+ * // HTML
+ * <p>Hello!</p>
+ * // JS
+ * facile.hide('p');
+ */
+export function hide<K extends keyof HTMLElementTagNameMap>(tag: K): void
+
+/**
+ * Hides the first element matching the given CSS selector by setting the `hidden` attribute.
+ * Does nothing if no element is found.
+ * @param selector A CSS selector string.
+ * @example
+ * // HTML
+ * <p id="message">Hello!</p>
+ * // JS
+ * facile.hide('#message');
+ */
+export function hide(selector: string): void
+
+export function hide(target: HTMLElement | string): void {
+  if (typeof target === 'string') {
+    const el = document.querySelector<HTMLElement>(target)
+    if (el) el.hidden = true
+  } else {
+    target.hidden = true
+  }
+}
+
+//#endregion
+
+//#region toggle()
+
+/**
+ * Toggles the visibility of the given element: hides it if visible, shows it if hidden.
+ * @param element The target element.
+ * @example
+ * // HTML
+ * <p id="message">Hello!</p>
+ * // JS
+ * const el = facile.getElement('#message');
+ * facile.toggle(el); // hides it
+ * facile.toggle(el); // shows it
+ */
+export function toggle(element: HTMLElement): void
+/**
+ * Toggles the visibility of the first element matching the given tag name.
+ * Does nothing if no element is found.
+ * @param tag The HTML tag name to search for.
+ * @example
+ * // HTML
+ * <p>Hello!</p>
+ * // JS
+ * facile.toggle('p'); // hides it
+ * facile.toggle('p'); // shows it
+ */
+export function toggle<K extends keyof HTMLElementTagNameMap>(tag: K): void
+/**
+ * Toggles the visibility of the first element matching the given CSS selector.
+ * Does nothing if no element is found.
+ * @param selector A CSS selector string.
+ * @example
+ * // HTML
+ * <p id="message">Hello!</p>
+ * // JS
+ * facile.toggle('#message'); // hides it
+ * facile.toggle('#message'); // shows it
+ */
+export function toggle(selector: string): void
+export function toggle(target: HTMLElement | string): void {
+  if (typeof target === 'string') {
+    const el = document.querySelector<HTMLElement>(target)
+    if (el) el.hidden ? show(el) : hide(el)
+  } else {
+    target.hidden ? show(target) : hide(target)
+  }
+}
+
+//#endregion

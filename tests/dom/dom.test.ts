@@ -1,5 +1,7 @@
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import { getAllElements, getElement } from '../../src/dom'
+import { afterEach, assert, beforeEach, describe, expect, it } from 'vitest'
+import { getAllElements, getElement, hide, show, toggle, write, writeHTML } from '../../src/dom'
+
+//#region Init
 
 beforeEach(() => {
   document.body.innerHTML = `
@@ -14,6 +16,10 @@ beforeEach(() => {
 afterEach(() => {
   document.body.innerHTML = ''
 })
+
+//#endregion
+
+//#region getElement()
 
 describe('getElement()', () => {
   it('finds an element by tag name', () => {
@@ -43,6 +49,10 @@ describe('getElement()', () => {
   })
 })
 
+//#endregion
+
+//#region getAllElements()
+
 describe('getAllElements()', () => {
   it('finds all elements by tag name', () => {
     expect(getAllElements('p')).toHaveLength(2)
@@ -69,3 +79,236 @@ describe('getAllElements()', () => {
     }
   })
 })
+
+//#endregion
+
+//#region write()
+
+describe('write()', () => {
+  it('sets the text of a given element', () => {
+    const el = getElement<HTMLElement>('#container')
+    assert(el !== null)
+    write(el, 'Hello!')
+    expect(el.innerText).toBe('Hello!')
+  })
+
+  it('sets the text of the first matching element by tag name', () => {
+    write('p', 'Hello!')
+    const el = getElement<HTMLElement>('p')
+    assert(el !== null)
+    expect(el.innerText).toBe('Hello!')
+  })
+
+  it('sets the text of the first matching element by CSS selector', () => {
+    write('#container', 'Hello!')
+    const el = getElement<HTMLElement>('#container')
+    assert(el !== null)
+    expect(el.innerText).toBe('Hello!')
+  })
+
+  it('only affects the first matching element', () => {
+    const els = getAllElements<HTMLElement>('p')
+    els[0].innerText = 'First'
+    els[1].innerText = 'Second'
+    write('p', 'Hello!')
+    expect(els[0].innerText).toBe('Hello!')
+    expect(els[1].innerText).toBe('Second')
+  })
+
+  it('does nothing when no element matches', () => {
+    expect(() => write('#nonexistent', 'Hello!')).not.toThrow()
+  })
+
+  it('strips HTML tags and writes plain text', () => {
+    const el = getElement<HTMLElement>('p')
+    assert(el !== null)
+    write(el, '<b>bold</b>')
+    expect(el.innerText).toBe('<b>bold</b>')
+  })
+})
+
+//#endregion
+
+//#region writeHTML()
+
+describe('writeHTML()', () => {
+  it('sets the HTML content of a given element', () => {
+    const el = getElement<HTMLElement>('#container')
+    assert(el !== null)
+    writeHTML(el, '<span>Hello!</span>')
+    expect(el.innerHTML).toBe('<span>Hello!</span>')
+  })
+
+  it('sets the HTML content of the first matching element by tag name', () => {
+    writeHTML('div', '<span>Hello!</span>')
+    const el = getElement<HTMLElement>('div')
+    assert(el !== null)
+    expect(el.innerHTML).toBe('<span>Hello!</span>')
+  })
+
+  it('sets the HTML content of the first matching element by CSS selector', () => {
+    writeHTML('#container', '<span>Hello!</span>')
+    const el = getElement<HTMLElement>('#container')
+    assert(el !== null)
+    expect(el.innerHTML).toBe('<span>Hello!</span>')
+  })
+
+  it('only affects the first matching element', () => {
+    writeHTML('p', '<b>Hello!</b>')
+    const els = getAllElements<HTMLElement>('p')
+    expect(els[0].innerHTML).toBe('<b>Hello!</b>')
+    expect(els[1].innerHTML).toBe('Second')
+  })
+
+  it('does nothing when no element matches', () => {
+    expect(() => writeHTML('#nonexistent', '<b>Hello!</b>')).not.toThrow()
+  })
+
+  it('parses and renders HTML tags', () => {
+    const el = getElement<HTMLElement>('div')
+    assert(el !== null)
+    writeHTML(el, '<span>Hello!</span>')
+    expect(el.querySelector('span')).not.toBeNull()
+  })
+})
+
+//#endregion
+
+//#region show()
+
+describe('show()', () => {
+  it('makes a given element visible', () => {
+    const el = getElement<HTMLElement>('div')
+    assert(el !== null)
+    el.hidden = true
+    show(el)
+    expect(el.hidden).toBe(false)
+  })
+
+  it('makes the first matching element visible by tag name', () => {
+    const el = getElement<HTMLElement>('p')
+    assert(el !== null)
+    el.hidden = true
+    show('p')
+    expect(el.hidden).toBe(false)
+  })
+
+  it('makes the first matching element visible by CSS selector', () => {
+    const el = getElement<HTMLElement>('#container')
+    assert(el !== null)
+    el.hidden = true
+    show('#container')
+    expect(el.hidden).toBe(false)
+  })
+
+  it('only affects the first matching element', () => {
+    const els = getAllElements<HTMLElement>('p')
+    els[0].hidden = true
+    els[1].hidden = true
+    show('p')
+    expect(els[0].hidden).toBe(false)
+    expect(els[1].hidden).toBe(true)
+  })
+
+  it('does nothing when no element matches', () => {
+    expect(() => show('#nonexistent')).not.toThrow()
+  })
+
+  it('has no effect on an already visible element', () => {
+    const el = getElement<HTMLElement>('div')
+    assert(el !== null)
+    el.hidden = false
+    show(el)
+    expect(el.hidden).toBe(false)
+  })
+})
+
+//#endregion
+
+//#region hide()
+
+describe('hide()', () => {
+  it('hides a given element', () => {
+    const el = getElement<HTMLElement>('div')
+    assert(el !== null)
+    hide(el)
+    expect(el.hidden).toBe(true)
+  })
+
+  it('hides the first matching element by tag name', () => {
+    const el = getElement<HTMLElement>('p')
+    assert(el !== null)
+    hide('p')
+    expect(el.hidden).toBe(true)
+  })
+
+  it('hides the first matching element by CSS selector', () => {
+    const el = getElement<HTMLElement>('#container')
+    assert(el !== null)
+    hide('#container')
+    expect(el.hidden).toBe(true)
+  })
+
+  it('only affects the first matching element', () => {
+    const els = getAllElements<HTMLElement>('p')
+    hide('p')
+    expect(els[0].hidden).toBe(true)
+    expect(els[1].hidden).toBe(false)
+  })
+
+  it('does nothing when no element matches', () => {
+    expect(() => hide('#nonexistent')).not.toThrow()
+  })
+
+  it('has no effect on an already hidden element', () => {
+    const el = getElement<HTMLElement>('div')
+    assert(el !== null)
+    el.hidden = true
+    hide(el)
+    expect(el.hidden).toBe(true)
+  })
+})
+
+//#endregion
+
+//#region toggle()
+
+describe('toggle()', () => {
+  it('hides a visible element', () => {
+    const el = getElement<HTMLElement>('div')
+    assert(el !== null)
+    el.hidden = false
+    toggle(el)
+    expect(el.hidden).toBe(true)
+  })
+
+  it('shows a hidden element', () => {
+    const el = getElement<HTMLElement>('div')
+    assert(el !== null)
+    el.hidden = true
+    toggle(el)
+    expect(el.hidden).toBe(false)
+  })
+
+  it('toggles the first matching element by tag name', () => {
+    const el = getElement<HTMLElement>('p')
+    assert(el !== null)
+    el.hidden = false
+    toggle('p')
+    expect(el.hidden).toBe(true)
+  })
+
+  it('toggles the first matching element by CSS selector', () => {
+    const el = getElement<HTMLElement>('#container')
+    assert(el !== null)
+    el.hidden = false
+    toggle('#container')
+    expect(el.hidden).toBe(true)
+  })
+
+  it('does nothing when no element matches', () => {
+    expect(() => toggle('#nonexistent')).not.toThrow()
+  })
+})
+
+//#endregion
