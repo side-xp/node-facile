@@ -1,5 +1,5 @@
 import { afterEach, assert, beforeEach, describe, expect, it } from 'vitest'
-import { getAllElements, getElement, hide, show, toggle, write, writeHTML } from '../../src/dom'
+import { addElement, getAllElements, getElement, hide, show, toggle, write, writeHTML } from '../../src/dom'
 
 //#region Init
 
@@ -308,6 +308,83 @@ describe('toggle()', () => {
 
   it('does nothing when no element matches', () => {
     expect(() => toggle('#nonexistent')).not.toThrow()
+  })
+})
+
+//#endregion
+
+//#region addElement()
+
+describe('addElement()', () => {
+  it('returns the created element', () => {
+    const el = addElement('p')
+    expect(el).toBeInstanceOf(HTMLParagraphElement)
+  })
+
+  it('appends to document.body by default', () => {
+    const el = addElement('p')
+    expect(document.body.contains(el)).toBe(true)
+  })
+
+  it('appends to a given element', () => {
+    const parent = getElement<HTMLElement>('#container')
+    assert(parent !== null)
+    const el = addElement('span', parent)
+    expect(parent.contains(el)).toBe(true)
+  })
+
+  it('appends to the first matching element by tag name', () => {
+    const el = addElement('span', 'div')
+    const parent = getElement<HTMLElement>('div')
+    assert(parent !== null)
+    expect(parent.contains(el)).toBe(true)
+  })
+
+  it('appends to the first matching element by CSS selector', () => {
+    const el = addElement('span', '#container')
+    const parent = getElement<HTMLElement>('#container')
+    assert(parent !== null)
+    expect(parent.contains(el)).toBe(true)
+  })
+
+  it('falls back to document.body when parent is not found', () => {
+    const el = addElement('p', '#nonexistent')
+    expect(document.body.contains(el)).toBe(true)
+  })
+
+  it('appends at the end by default', () => {
+    const parent = getElement<HTMLElement>('#container')
+    assert(parent !== null)
+    const el = addElement('span', parent)
+    expect(parent.lastElementChild).toBe(el)
+  })
+
+  it('inserts at index 0', () => {
+    const parent = getElement<HTMLElement>('#container')
+    assert(parent !== null)
+    const el = addElement('span', parent, 0)
+    expect(parent.firstElementChild).toBe(el)
+  })
+
+  it('inserts at a mid-range index', () => {
+    const parent = getElement<HTMLElement>('#container')
+    assert(parent !== null)
+    const el = addElement('span', parent, 1)
+    expect(parent.children[1]).toBe(el)
+  })
+
+  it('clamps a negative index to 0', () => {
+    const parent = getElement<HTMLElement>('#container')
+    assert(parent !== null)
+    const el = addElement('span', parent, -5)
+    expect(parent.firstElementChild).toBe(el)
+  })
+
+  it('clamps an out-of-range index to the end', () => {
+    const parent = getElement<HTMLElement>('#container')
+    assert(parent !== null)
+    const el = addElement('span', parent, 999)
+    expect(parent.lastElementChild).toBe(el)
   })
 })
 

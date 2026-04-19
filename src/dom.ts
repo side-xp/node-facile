@@ -321,3 +321,102 @@ export function toggle(target: HTMLElement | string): void {
 }
 
 //#endregion
+
+//#region addElement()
+
+/**
+ * Creates a new element and appends it to `document.body`.
+ * @param tag The HTML tag name of the element to create.
+ * @returns Returns the created element.
+ * @example
+ * const p = facile.addElement('p');
+ */
+export function addElement<K extends keyof HTMLElementTagNameMap>(tag: K): HTMLElementTagNameMap[K]
+
+/**
+ * Creates a new element and inserts it into the given parent element.
+ * The `index` defines the position among the parent's children, and is clamped to the valid range
+ * `[0, parent.children.length]`. Defaults to appending at the end.
+ * @param tag The HTML tag name of the element to create.
+ * @param parent The parent element to insert into.
+ * @param index The position among the parent's children. Defaults to the end.
+ * @returns Returns the created element.
+ * @example
+ * // HTML
+ * <div id="container"></div>
+ * // JS
+ * const el = facile.getElement('#container');
+ * const p = facile.addElement('p', el);
+ */
+export function addElement<K extends keyof HTMLElementTagNameMap>(
+  tag: K,
+  parent: HTMLElement,
+  index?: number,
+): HTMLElementTagNameMap[K]
+
+/**
+ * Creates a new element and inserts it into the first element matching the given tag name.
+ * Falls back to `document.body` if no matching element is found.
+ * The `index` defines the position among the parent's children, and is clamped to the valid range
+ * `[0, parent.children.length]`. Defaults to appending at the end.
+ * @param tag The HTML tag name of the element to create.
+ * @param parentTag The HTML tag name of the parent element to insert into.
+ * @param index The position among the parent's children. Defaults to the end.
+ * @returns Returns the created element.
+ * @example
+ * // HTML
+ * <div></div>
+ * // JS
+ * const p = facile.addElement('p', 'div');
+ */
+export function addElement<K extends keyof HTMLElementTagNameMap, P extends keyof HTMLElementTagNameMap>(
+  tag: K,
+  parentTag: P,
+  index?: number,
+): HTMLElementTagNameMap[K]
+
+/**
+ * Creates a new element and inserts it into the first element matching the given CSS selector.
+ * Falls back to `document.body` if no matching element is found.
+ * The `index` defines the position among the parent's children, and is clamped to the valid range
+ * `[0, parent.children.length]`. Defaults to appending at the end.
+ * @param tag The HTML tag name of the element to create.
+ * @param selector A CSS selector string for the parent element.
+ * @param index The position among the parent's children. Defaults to the end.
+ * @returns Returns the created element.
+ * @example
+ * // HTML
+ * <div id="container"></div>
+ * // JS
+ * const p = facile.addElement('p', '#container');
+ */
+export function addElement<K extends keyof HTMLElementTagNameMap>(
+  tag: K,
+  selector: string,
+  index?: number,
+): HTMLElementTagNameMap[K]
+
+export function addElement<K extends keyof HTMLElementTagNameMap>(
+  tag: K,
+  parent?: HTMLElement | string,
+  index?: number,
+): HTMLElementTagNameMap[K] {
+  const el = document.createElement(tag)
+
+  let parentEl: HTMLElement
+  if (typeof parent === 'string') {
+    parentEl = document.querySelector<HTMLElement>(parent) ?? document.body
+  } else {
+    parentEl = parent ?? document.body
+  }
+
+  const childCount = parentEl.children.length
+  // If the index is undefined, use the last available index in the parent
+  const insertAt = index === undefined ? childCount : Math.max(0, Math.min(index, childCount))
+  const insertBefore = parentEl.children[insertAt] ?? null
+  parentEl.insertBefore(el, insertBefore)
+
+  return el
+}
+
+//#endregion
