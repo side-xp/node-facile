@@ -1,5 +1,6 @@
 export * from './collection'
 export * from './dom'
+export * from './interaction'
 export * from './math'
 export * from './random'
 export * from './time'
