@@ -114,7 +114,7 @@ export function write(selector: string, text: string): void
 
 export function write(target: HTMLElement | string, text: string): void {
   if (typeof target === 'string') {
-    const el = document.querySelector<HTMLElement>(target)
+    const el = getElement<HTMLElement>(target)
     if (el) el.innerText = text
   } else {
     target.innerText = text
@@ -166,7 +166,7 @@ export function writeHTML(selector: string, html: string): void
 
 export function writeHTML(target: HTMLElement | string, html: string): void {
   if (typeof target === 'string') {
-    const el = document.querySelector<HTMLElement>(target)
+    const el = getElement<HTMLElement>(target)
     if (el) el.innerHTML = html
   } else {
     target.innerHTML = html
@@ -215,7 +215,7 @@ export function show(selector: string): void
 
 export function show(target: HTMLElement | string): void {
   if (typeof target === 'string') {
-    const el = document.querySelector<HTMLElement>(target)
+    const el = getElement<HTMLElement>(target)
     if (el) el.hidden = false
   } else {
     target.hidden = false
@@ -264,7 +264,7 @@ export function hide(selector: string): void
 
 export function hide(target: HTMLElement | string): void {
   if (typeof target === 'string') {
-    const el = document.querySelector<HTMLElement>(target)
+    const el = getElement<HTMLElement>(target)
     if (el) el.hidden = true
   } else {
     target.hidden = true
@@ -313,7 +313,7 @@ export function toggle<K extends keyof HTMLElementTagNameMap>(tag: K): void
 export function toggle(selector: string): void
 export function toggle(target: HTMLElement | string): void {
   if (typeof target === 'string') {
-    const el = document.querySelector<HTMLElement>(target)
+    const el = getElement<HTMLElement>(target)
     if (el) el.hidden ? show(el) : hide(el)
   } else {
     target.hidden ? show(target) : hide(target)
@@ -405,7 +405,7 @@ export function addElement<K extends keyof HTMLElementTagNameMap>(
 
   let parentEl: HTMLElement
   if (typeof parent === 'string') {
-    parentEl = document.querySelector<HTMLElement>(parent) ?? document.body
+    parentEl = getElement<HTMLElement>(parent) ?? document.body
   } else {
     parentEl = parent ?? document.body
   }
@@ -460,7 +460,7 @@ export function empty<K extends keyof HTMLElementTagNameMap>(tag: K): void
 export function empty(selector: string): void
 
 export function empty(target: HTMLElement | string): void {
-  const el = typeof target === 'string' ? document.querySelector<HTMLElement>(target) : target
+  const el = typeof target === 'string' ? getElement<HTMLElement>(target) : target
   if (el) {
     while (el.lastChild) el.removeChild(el.lastChild)
   }
