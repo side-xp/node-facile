@@ -1,7 +1,9 @@
 {
   "$schema": "https://typedoc.org/schema.json",
   "plugin": ["typedoc-plugin-markdown"],
-  "entryPoints": ["./src/index.ts"],
+  "entryPoints": ["./src"],
+  "entryPointStrategy": "expand",
+  "exclude": ["**/index.ts"],
   "out": "./docs/api",
   "readme": "none",
   "name": "Facile JS",
@@ -9,6 +11,5 @@
   "hidePageHeader": true,
   "hideBreadcrumbs": true,
   "entryFileName": "index",
-  "flattenOutputFiles": true,
   "excludeTags": ["@override", "@virtual", "@privateRemarks", "@satisfies", "@overload", "@inline", "@inlineType"]
 }

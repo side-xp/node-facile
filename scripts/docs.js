@@ -1,15 +1,31 @@
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
-const apiDir = './docs/api'
+/**
+ * Processes the MarkDown files of a directory.
+ * @param {string} dir The path of the directory to process.
+ */
+function processDir(dir) {
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const entryPath = join(dir, entry.name)
+    // Process directories recursively
+    if (entry.isDirectory()) {
+      processDir(entryPath)
+    }
+    // If the current item is a MarkDown file
+    else if (entry.isFile() && entry.name.endsWith('.md')) {
+      const original = readFileSync(entryPath, 'utf-8')
 
-for (const file of readdirSync(apiDir).filter((f) => f.endsWith('.md'))) {
-  const filePath = join(apiDir, file)
-  const original = readFileSync(filePath, 'utf-8')
-  let count = 0
-  const updated = original.replace(/^## Call [Ss]ignature$/gm, () => `## Overload ${++count}`)
+      // Replace TypeDoc's `## Call Signature` for function overloads headers with a counter
+      let overloadsCount = 0
+      const content = original.replace(/^## Call [Ss]ignature$/gm, () => `## Overload ${++overloadsCount}`)
 
-  if (updated !== original) {
-    writeFileSync(filePath, updated, 'utf-8')
+      // Overwrite file if the content has changed
+      if (content !== original) {
+        writeFileSync(entryPath, content, 'utf-8')
+      }
+    }
   }
 }
+
+processDir('./docs/api')

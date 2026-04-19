@@ -13,17 +13,30 @@ function getApiSidebar() {
   const apiDir = resolve(__dirname, '../api')
   if (!existsSync(apiDir)) return []
 
-  return readdirSync(apiDir, { withFileTypes: true })
-    .filter(
-      (entry) =>
-        entry.isFile() && entry.name.endsWith('.md') && entry.name !== 'index.md' && entry.name !== 'README.md',
-    )
-    .map((entry) => {
-      const slug = entry.name.replace(/\.md$/, '')
-      // "Function.random" → "random"
-      const text = slug.includes('.') ? (slug.split('.').at(-1) ?? slug) : slug
-      return { text, link: `/api/${slug}` }
-    })
+  return (
+    readdirSync(apiDir, { withFileTypes: true })
+      .filter((entry) => entry.isDirectory())
+      // Each "moduleDir" is related to one of the scripts in `src/`
+      // For example, `random.ts` will produce a `docs/api/random/` directory
+      .map((moduleDir) => {
+        const modulePath = resolve(apiDir, moduleDir.name)
+        // TypeDoc generates a folder per item type (functions/, variables/, classes/, etc.)
+        const items = readdirSync(modulePath, { withFileTypes: true })
+          .filter((entry) => entry.isDirectory())
+          .flatMap((subDir) =>
+            readdirSync(resolve(modulePath, subDir.name), { withFileTypes: true })
+              .filter((entry) => entry.isFile() && entry.name.endsWith('.md'))
+              // Rename menu: remove *.md extension, add `()` for functions
+              .map((entry) => {
+                const name = entry.name.replace(/\.md$/, '')
+                const text = subDir.name === 'functions' ? `${name}()` : name
+                return { text, link: `/api/${moduleDir.name}/${subDir.name}/${name}` }
+              }),
+          )
+        const text = moduleDir.name.charAt(0).toUpperCase() + moduleDir.name.slice(1)
+        return { text, items }
+      })
+  )
 }
 
 export default defineConfig({
