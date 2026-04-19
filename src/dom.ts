@@ -420,3 +420,50 @@ export function addElement<K extends keyof HTMLElementTagNameMap>(
 }
 
 //#endregion
+
+//#region empty()
+
+/**
+ * Removes all child nodes from the given element.
+ * @param element The target element.
+ * @example
+ * // HTML
+ * <div id="container"><p>Hello!</p></div>
+ * // JS
+ * const el = facile.getElement('#container');
+ * facile.empty(el);
+ */
+export function empty(element: HTMLElement): void
+
+/**
+ * Removes all child nodes from the first element matching the given tag name.
+ * Does nothing if no element is found.
+ * @param tag The HTML tag name to search for.
+ * @example
+ * // HTML
+ * <div><p>Hello!</p></div>
+ * // JS
+ * facile.empty('div');
+ */
+export function empty<K extends keyof HTMLElementTagNameMap>(tag: K): void
+
+/**
+ * Removes all child nodes from the first element matching the given CSS selector.
+ * Does nothing if no element is found.
+ * @param selector A CSS selector string.
+ * @example
+ * // HTML
+ * <div id="container"><p>Hello!</p></div>
+ * // JS
+ * facile.empty('#container');
+ */
+export function empty(selector: string): void
+
+export function empty(target: HTMLElement | string): void {
+  const el = typeof target === 'string' ? document.querySelector<HTMLElement>(target) : target
+  if (el) {
+    while (el.lastChild) el.removeChild(el.lastChild)
+  }
+}
+
+//#endregion

@@ -1,5 +1,5 @@
 import { afterEach, assert, beforeEach, describe, expect, it } from 'vitest'
-import { addElement, getAllElements, getElement, hide, show, toggle, write, writeHTML } from '../../src/dom'
+import { addElement, empty, getAllElements, getElement, hide, show, toggle, write, writeHTML } from '../../src/dom'
 
 //#region Init
 
@@ -385,6 +385,51 @@ describe('addElement()', () => {
     assert(parent !== null)
     const el = addElement('span', parent, 999)
     expect(parent.lastElementChild).toBe(el)
+  })
+})
+
+//#endregion
+
+//#region empty()
+
+describe('empty()', () => {
+  it('removes all children from a given element', () => {
+    const el = getElement<HTMLElement>('#container')
+    assert(el !== null)
+    empty(el)
+    expect(el.childNodes.length).toBe(0)
+  })
+
+  it('removes all children from the first matching element by tag name', () => {
+    empty('div')
+    const el = getElement<HTMLElement>('div')
+    assert(el !== null)
+    expect(el.childNodes.length).toBe(0)
+  })
+
+  it('removes all children from the first matching element by CSS selector', () => {
+    empty('#container')
+    const el = getElement<HTMLElement>('#container')
+    assert(el !== null)
+    expect(el.childNodes.length).toBe(0)
+  })
+
+  it('removes text nodes as well as element nodes', () => {
+    const el = getElement<HTMLElement>('#container')
+    assert(el !== null)
+    el.appendChild(document.createTextNode('hello'))
+    empty(el)
+    expect(el.childNodes.length).toBe(0)
+  })
+
+  it('has no effect on an already empty element', () => {
+    const el = addElement('div', document.body)
+    empty(el)
+    expect(el.childNodes.length).toBe(0)
+  })
+
+  it('does nothing when no element matches', () => {
+    expect(() => empty('#nonexistent')).not.toThrow()
   })
 })
 
