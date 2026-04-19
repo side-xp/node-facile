@@ -1,3 +1,6 @@
+// This script is invoked after generating the API documentation with TypeDoc, in order to process the generated
+// MarkDown files to apply custom behavior.
+
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 

@@ -1,3 +1,8 @@
+/**
+ * Functions for working with arrays and collections.
+ * @module Collection
+ */
+
 import { random } from './random'
 
 /**

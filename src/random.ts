@@ -1,3 +1,8 @@
+/**
+ * Functions for generating random values.
+ * @module Random
+ */
+
 //#region random()
 
 /**

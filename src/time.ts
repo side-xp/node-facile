@@ -1,4 +1,9 @@
 /**
+ * Utilities for using timers or dealing with delays.
+ * @module Time
+ */
+
+/**
  * Represents a callback used for a timer.
  */
 export type TimerCallback = () => void
