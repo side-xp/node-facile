@@ -47,7 +47,11 @@ And CommonJS syntax:
 const { random } = require('@side-xp/facilejs')
 ```
 
-## License
+## API documentation
+
+[=> https://side-xp.github.io/node-facile](https://side-xp.github.io/node-facile)
+
+---
 
 Crafted and maintained with love by [Sideways Experiments](https://sideways-experiments.com)
 
