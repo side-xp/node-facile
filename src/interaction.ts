@@ -126,3 +126,65 @@ export function onChange(target: FormField | string, callback: ChangeCallback): 
 }
 
 //#endregion
+
+//#region Prompts
+
+/**
+ * Prompts the user to enter a text value. Returns the trimmed input, or `null` if the user cancelled.
+ * @param message The message to display in the prompt dialog.
+ * @param defaultValue An optional default value pre-filled in the input field.
+ * @returns Returns the trimmed user input, or `null` if cancelled.
+ * @example
+ * const name = facile.ask('What is your name?');
+ * if (name) {
+ *   facile.say(`Hello, ${name}!`);
+ * }
+ */
+export function ask(message: string, defaultValue?: string): string | null {
+  const result = window.prompt(message, defaultValue)
+  return result === null ? null : result.trim()
+}
+
+/**
+ * Prompts the user to enter a numeric value. Returns the parsed number, or `null` if the input is not a valid number
+ * or if the user cancelled.
+ * Commas are accepted as decimal separators (eg. `3,14` is treated as `3.14`).
+ * @param message The message to display in the prompt dialog.
+ * @param allowDecimals Whether to allow decimal numbers. Defaults to `false`.
+ * @returns Returns the parsed number, or `null` if the input is invalid or cancelled.
+ * @example
+ * const age = facile.askNumber('How old are you?');
+ * const price = facile.askNumber('Enter a price:', true);
+ */
+export function askNumber(message: string, allowDecimals = false): number | null {
+  const input = window.prompt(message)
+  if (input === null) return null
+  const normalized = input.trim().replace(',', '.')
+  const num = allowDecimals ? parseFloat(normalized) : parseInt(normalized, 10)
+  return Number.isNaN(num) ? null : num
+}
+
+/**
+ * Displays a message in a dialog box.
+ * @param message The message to display.
+ * @example
+ * facile.say('Hello, World!');
+ */
+export function say(message: string): void {
+  window.alert(message)
+}
+
+/**
+ * Displays a confirmation dialog and returns `true` if the user confirmed, `false` otherwise.
+ * @param message The message to display in the confirmation dialog.
+ * @returns Returns `true` if the user clicked OK, `false` if they clicked Cancel.
+ * @example
+ * if (facile.confirm('Are you sure?')) {
+ *   facile.say('Confirmed!');
+ * }
+ */
+export function confirm(message: string): boolean {
+  return window.confirm(message)
+}
+
+//#endregion
