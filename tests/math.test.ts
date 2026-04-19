@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { clamp, roundTo } from '../src/math'
+import { average, clamp, lerp, roundTo, sum } from '../src/math'
+
+//#region roundTo()
 
 describe('roundTo()', () => {
   it('rounds to integer by default', () => {
@@ -31,6 +33,10 @@ describe('roundTo()', () => {
   })
 })
 
+//#endregion
+
+//#region clamp()
+
 describe('clamp()', () => {
   it('returns value unchanged when within range', () => {
     expect(clamp(5, 0, 10)).toBe(5)
@@ -61,3 +67,89 @@ describe('clamp()', () => {
     expect(clamp(-15, -10, -1)).toBe(-10)
   })
 })
+
+//#endregion
+
+//#region lerp()
+
+describe('lerp()', () => {
+  it('returns from when t is 0', () => {
+    expect(lerp(0, 10, 0)).toBe(0)
+  })
+
+  it('returns to when t is 1', () => {
+    expect(lerp(0, 10, 1)).toBe(10)
+  })
+
+  it('returns the midpoint when t is 0.5', () => {
+    expect(lerp(0, 10, 0.5)).toBe(5)
+  })
+
+  it('works with negative values', () => {
+    expect(lerp(-10, 10, 0.5)).toBe(0)
+  })
+
+  it('clamps t to [0, 1] by default', () => {
+    expect(lerp(0, 10, 2)).toBe(10)
+    expect(lerp(0, 10, -1)).toBe(0)
+  })
+
+  it('does not clamp t when clampT is false', () => {
+    expect(lerp(0, 10, 2, false)).toBe(20)
+    expect(lerp(0, 10, -1, false)).toBe(-10)
+  })
+})
+
+//#endregion
+
+//#region sum()
+
+describe('sum()', () => {
+  it('returns the sum of all numbers', () => {
+    expect(sum([1, 2, 3])).toBe(6)
+  })
+
+  it('returns 0 for an empty array', () => {
+    expect(sum([])).toBe(0)
+  })
+
+  it('handles a single element', () => {
+    expect(sum([42])).toBe(42)
+  })
+
+  it('handles negative numbers', () => {
+    expect(sum([-1, -2, -3])).toBe(-6)
+  })
+
+  it('handles a mix of positive and negative numbers', () => {
+    expect(sum([-5, 5])).toBe(0)
+  })
+})
+
+//#endregion
+
+//#region average()
+
+describe('average()', () => {
+  it('returns the average of all numbers', () => {
+    expect(average([1, 2, 3])).toBe(2)
+  })
+
+  it('returns NaN for an empty array', () => {
+    expect(average([])).toBeNaN()
+  })
+
+  it('returns the value itself for a single element', () => {
+    expect(average([5])).toBe(5)
+  })
+
+  it('handles negative numbers', () => {
+    expect(average([-3, -1])).toBe(-2)
+  })
+
+  it('handles a mix of positive and negative numbers', () => {
+    expect(average([-5, 5])).toBe(0)
+  })
+})
+
+//#endregion

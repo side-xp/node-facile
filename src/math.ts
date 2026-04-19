@@ -37,3 +37,49 @@ export function roundTo(value: number, decimals = 0): number {
 export function clamp(value: number, min: number, max: number): number {
   return Math.min(Math.max(value, min), max)
 }
+
+/**
+ * Linearly interpolates between two numbers.
+ * @param from The start value (returned when `t` is `0`).
+ * @param to The end value (returned when `t` is `1`).
+ * @param t The interpolation factor.
+ * @param clampT Whether to clamp `t` to the range `[0, 1]`. Defaults to `true`.
+ * @returns The interpolated value.
+ * @example
+ * lerp(0, 10, 0.5)      // 5
+ * lerp(0, 10, 0)        // 0
+ * lerp(0, 10, 1)        // 10
+ * lerp(0, 10, 2)        // 10 (t is clamped by default)
+ * lerp(0, 10, 2, false) // 20 (t is not clamped)
+ */
+export function lerp(from: number, to: number, t: number, clampT = true): number {
+  const factor = clampT ? clamp(t, 0, 1) : t
+  return from + (to - from) * factor
+}
+
+/**
+ * Returns the sum of all numbers in an array. Returns `0` for an empty array.
+ * @param numbers The array of numbers to sum.
+ * @returns The sum of all numbers.
+ * @example
+ * sum([1, 2, 3])  // 6
+ * sum([])         // 0
+ */
+export function sum(numbers: number[]): number {
+  return numbers.reduce((acc, n) => acc + n, 0)
+}
+
+/**
+ * Returns the average (arithmetic mean) of all numbers in an array.
+ * Returns `NaN` for an empty array.
+ * @param numbers The array of numbers to average.
+ * @returns The average value, or `NaN` if the array is empty.
+ * @example
+ * average([1, 2, 3])  // 2
+ * average([5])        // 5
+ * average([])         // NaN
+ */
+export function average(numbers: number[]): number {
+  if (numbers.length === 0) return NaN
+  return sum(numbers) / numbers.length
+}
