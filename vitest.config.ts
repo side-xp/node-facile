@@ -9,8 +9,22 @@ export default defineConfig({
       exclude: ['src/**/*.d.ts'],
     },
     projects: [
-      defineProject({ test: { name: 'node', environment: 'node' } }),
-      defineProject({ test: { name: 'jsdom', environment: 'jsdom' } }),
+      defineProject({
+        test: {
+          name: 'node',
+          environment: 'node',
+          include: ['tests/**/*.test.ts'],
+          exclude: ['tests/dom/**'],
+        },
+      }),
+      defineProject({
+        test: {
+          name: 'jsdom',
+          environment: 'jsdom',
+          include: ['tests/**/*.test.ts'],
+          exclude: ['tests/node/**'],
+        },
+      }),
     ],
   },
 })
