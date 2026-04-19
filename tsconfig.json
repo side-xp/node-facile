@@ -14,15 +14,15 @@
     "sourceMap": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    
+
     // Recommended Options
     "verbatimModuleSyntax": true,
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
-    
+
     "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
+    "exactOptionalPropertyTypes": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]

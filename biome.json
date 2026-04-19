@@ -1,4 +1,4 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.4.12/schema.json",
-	"extends": ["@side-xp/biome-config/biome.lib.json"]
+  "$schema": "https://biomejs.dev/schemas/2.4.12/schema.json",
+  "extends": ["@side-xp/biome-config", "@side-xp/biome-config/biome.lib.json"]
 }
