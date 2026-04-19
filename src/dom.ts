@@ -3,6 +3,11 @@
  * @module DOM
  */
 
+// Guard for Node context
+if (typeof window === 'undefined') {
+  throw new Error('facile:dom.ts - DOM utilities require a browser environment.')
+}
+
 //#region getElement()
 
 /**

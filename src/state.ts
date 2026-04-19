@@ -5,6 +5,7 @@
 
 /**
  * Represents a callback invoked when a state value changes.
+ * @template T The type of the watched value
  * @param newValue The new value after the change.
  * @param oldValue The previous value before the change.
  */
@@ -12,6 +13,7 @@ export type WatchCallback<T> = (newValue: T, oldValue: T) => void
 
 /**
  * A reactive state variable that notifies registered watchers whenever its value changes.
+ * @template T The type of the value handled by this state.
  * @example
  * const counter = new State(0)
  * counter.watch((newVal, oldVal) => {
@@ -71,6 +73,7 @@ export class State<T> {
 
 /**
  * Creates a reactive state variable that notifies registered watchers whenever its value changes.
+ * @template T The type of the value handled by the state.
  * @param initialValue The initial value of the state.
  * @returns A new `State` instance.
  * @example

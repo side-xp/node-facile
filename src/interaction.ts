@@ -3,6 +3,11 @@
  * @module Interaction
  */
 
+// Guard for Node context
+if (typeof window === 'undefined') {
+  throw new Error('facile:interaction.ts - Interaction utilities require a browser environment.')
+}
+
 import { getElement } from './dom'
 
 //#region onClick()

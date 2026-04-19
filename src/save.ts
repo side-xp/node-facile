@@ -3,6 +3,11 @@
  * @module Save
  */
 
+// Guard for Node context
+if (typeof window === 'undefined') {
+  throw new Error('facile:save.ts - Save & localStorage utilities require a browser environment.')
+}
+
 /**
  * Saves data locally.
  * @param key The key for retrieving the saved data.
