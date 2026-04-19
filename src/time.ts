@@ -104,3 +104,11 @@ export function doAfter(delay: number, callback: TimerCallback): Timer {
   timer.restart()
   return timer
 }
+
+/**
+ * Pauses execution for a given duration.
+ * @param ms The duration to wait, in milliseconds.
+ */
+export function wait(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
