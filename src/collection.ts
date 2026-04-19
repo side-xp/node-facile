@@ -56,6 +56,19 @@ export function pick<T>(collection: Iterable<T>): T | null {
 //#endregion
 
 /**
+ * Returns a new array containing only the unique values from the given array, preserving order.
+ * @param array The array to filter.
+ * @returns A new array with duplicate values removed.
+ * @example
+ * unique([1, 2, 2, 3, 1])        // [1, 2, 3]
+ * unique(['a', 'b', 'a', 'c'])   // ['a', 'b', 'c']
+ * unique([])                     // []
+ */
+export function unique<T>(array: T[]): T[] {
+  return [...new Set(array)]
+}
+
+/**
  * Shuffles the items of an array in-place (modifing the source array).
  * @param array The array to shuffle.
  * @example

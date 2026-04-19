@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest'
-import { pick, shuffle } from '../src/collection'
+import { pick, shuffle, unique } from '../src/collection'
 
 const ITERATIONS = 1000
+
+//#region pick()
 
 describe('pick()', () => {
   describe('array', () => {
@@ -67,6 +69,45 @@ describe('pick()', () => {
   })
 })
 
+//#endregion
+
+//#region unique()
+
+describe('unique()', () => {
+  it('returns a new array with duplicate values removed', () => {
+    expect(unique([1, 2, 2, 3, 1])).toEqual([1, 2, 3])
+  })
+
+  it('preserves the order of first occurrences', () => {
+    expect(unique(['b', 'a', 'b', 'c', 'a'])).toEqual(['b', 'a', 'c'])
+  })
+
+  it('returns the array unchanged when all values are already unique', () => {
+    expect(unique([1, 2, 3])).toEqual([1, 2, 3])
+  })
+
+  it('returns an empty array unchanged', () => {
+    expect(unique([])).toEqual([])
+  })
+
+  it('works with a single-element array', () => {
+    expect(unique([42])).toEqual([42])
+  })
+
+  it('works with strings', () => {
+    expect(unique(['a', 'b', 'a', 'c'])).toEqual(['a', 'b', 'c'])
+  })
+
+  it('returns a new array, not the original', () => {
+    const original = [1, 2, 3]
+    expect(unique(original)).not.toBe(original)
+  })
+})
+
+//#endregion
+
+//#region shuffle()
+
 describe('shuffle()', () => {
   it('does nothing to an empty array', () => {
     const array: string[] = []
@@ -120,3 +161,5 @@ describe('shuffle()', () => {
     }
   })
 })
+
+//#endregion
