@@ -3,6 +3,8 @@
  * @module Utils
  */
 
+//#region Conversion
+
 /**
  * Converts a value to a number, treating commas as decimal separators.
  * @param value The value to convert.
@@ -19,6 +21,10 @@ export function toNumber(value: unknown): number {
   }
   return Number(value)
 }
+
+//#endregion
+
+//#region Validation
 
 /**
  * Checks whether a value is a valid number.
@@ -79,3 +85,5 @@ export function isEmpty(value: unknown): boolean {
   if (typeof value === 'string') return value.trim().length === 0
   return false
 }
+
+//#endregion

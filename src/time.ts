@@ -81,6 +81,8 @@ export class Timer {
   }
 }
 
+//#region Global
+
 /**
  * Repeats a function every given interval.
  * @param interval The time interval, in milliseconds.
@@ -112,3 +114,5 @@ export function doAfter(delay: number, callback: TimerCallback): Timer {
 export function wait(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
+
+//#endregion

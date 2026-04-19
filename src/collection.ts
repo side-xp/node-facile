@@ -5,6 +5,8 @@
 
 import { random } from './random'
 
+//#region pick()
+
 /**
  * Picks an item at random from an array.
  * @param array The array from which the item will be picked.
@@ -50,6 +52,8 @@ export function pick<T>(collection: Iterable<T>): T | null {
   const randomIndex = random(items.length - 1)
   return items[randomIndex]
 }
+
+//#endregion
 
 /**
  * Shuffles the items of an array in-place (modifing the source array).
