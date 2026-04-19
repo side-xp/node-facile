@@ -108,3 +108,49 @@ export function randomDecimal(minOrMax?: number, max?: number): number {
 }
 
 //#endregion
+
+//#region chance()
+
+/**
+ * Evaluates a probability and returns `true` or `false` accordingly.
+ * @param probability A value between `0` and `1` representing the probability (eg. `0.75` for 75%).
+ * @returns `true` if the chance is met, `false` otherwise.
+ * @example
+ * chance(0.75)   // true 75% of the time
+ * chance(0)      // always false
+ * chance(1)      // always true
+ * chance(-1)     // always false, chance is evaluated between `0` and `1`
+ * chance(75)     // always true, values higher than `1` always produce a positive output
+ */
+export function chance(probability: number): boolean;
+
+/**
+ * Evaluates a probability expressed as a fraction and returns `true` or `false` accordingly.
+ * @param favorable The number of favorable outcomes.
+ * @param total The total number of outcomes.
+ * @returns `true` if the chance is met, `false` otherwise.
+ * @example
+ * chance(1, 3)     // true 1 time out of 3
+ * chance(3, 4)     // true 3 times out of 4
+ * chance(0.75, 1)  // same as chance(0.75) with a single parameter
+ * chance(0, 0)     // always false
+ * chance(20, 0)    // always false
+ */
+export function chance(favorable: number, total: number): boolean;
+
+export function chance(
+	probabilityOrFavorable: number,
+	total?: number,
+): boolean {
+	if (total === undefined) {
+		return randomDecimal() < probabilityOrFavorable;
+	}
+
+	if (total === 0) {
+		return false;
+	}
+
+	return randomDecimal() < probabilityOrFavorable / total;
+}
+
+//#endregion
