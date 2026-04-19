@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitest/config'
+import { defineConfig, defineProject } from 'vitest/config'
 
 export default defineConfig({
   test: {
@@ -8,5 +8,9 @@ export default defineConfig({
       include: ['src/**'],
       exclude: ['src/**/*.d.ts'],
     },
+    projects: [
+      defineProject({ test: { name: 'node', environment: 'node' } }),
+      defineProject({ test: { name: 'jsdom', environment: 'jsdom' } }),
+    ],
   },
 })
