@@ -15,7 +15,7 @@ export class Timer {
   /** Flag enabled if this timer wraps a `setInterval()` call, meaning the callback will repeat. */
   private _loops: boolean
   /** The id provided by the timer API, whether it's provided from `setInterval()` or `setTimeout()`. */
-  private _id: number | undefined
+  private _id: ReturnType<typeof setTimeout> | undefined
   /** {@link isRunning} */
   private _isRunning = false
   /** The delay or interval (in milliseconds) of this timer. */
@@ -59,9 +59,9 @@ export class Timer {
     this.stop()
 
     if (this._loops) {
-      this._id = window.setInterval(this._callback, this._msInterval)
+      this._id = setInterval(this._callback, this._msInterval)
     } else {
-      this._id = window.setTimeout(this._callback, this._msInterval)
+      this._id = setTimeout(this._callback, this._msInterval)
     }
     this._isRunning = true
   }
@@ -72,9 +72,9 @@ export class Timer {
   public stop() {
     if (this._isRunning) {
       if (this._loops) {
-        window.clearInterval(this._id)
+        clearInterval(this._id)
       } else {
-        window.clearTimeout(this._id)
+        clearTimeout(this._id)
       }
       this._isRunning = false
     }
