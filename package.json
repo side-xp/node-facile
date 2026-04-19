@@ -13,6 +13,9 @@
     "easy",
     "simple"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "dist",
     "README.md",
