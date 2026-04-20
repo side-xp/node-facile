@@ -26,6 +26,7 @@ jobs:
       issues: write         # comment on released issues
       pull-requests: write  # comment on released PRs
       id-token: write       # NPM provenance attestation
+      packages: write       # publish to GitHub Packages
     steps:
       - name: Checkout
         uses: actions/checkout@v6
