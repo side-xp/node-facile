@@ -26,7 +26,6 @@ jobs:
       issues: write         # comment on released issues
       pull-requests: write  # comment on released PRs
       id-token: write       # NPM provenance attestation
-      packages: write       # publish to GitHub Packages
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -53,17 +52,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
 
-      - name: Setup Node.js for GitHub Packages
-        uses: actions/setup-node@v6
-        with:
-          node-version: 22
-          registry-url: https://npm.pkg.github.com
-          scope: '@side-xp'
-
-      - name: Publish to GitHub Packages
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   docs:
     name: Deploy docs
