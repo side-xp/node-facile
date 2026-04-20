@@ -1,6 +1,6 @@
 {
   "name": "@side-xp/facile",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Lightweight JavaScript & Node utilities. ",
   "engines": {
     "node": ">=22"
