@@ -42,6 +42,7 @@ function getApiSidebar() {
 export default defineConfig({
   title: 'FacileJS',
   description: 'Lightweight JavaScript utilities with simple, beginner-friendly APIs.',
+  base: '/node-facile/',
 
   themeConfig: {
     nav: [
