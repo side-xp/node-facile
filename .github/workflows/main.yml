@@ -52,6 +52,54 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
 
+  publish-gpr:
+    name: Publish to GitHub Packages
+    needs: release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          registry-url: https://npm.pkg.github.com
+          scope: '@side-xp'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+        env:
+          HUSKY: 0
+
+      - name: Build
+        run: npm run build
+
+      # Semantic-release exits 0 even when no release is made, so we check whether the current HEAD commit has a
+      # version tag (eg. v1.2.3).
+      # If it does, a release just happened and we should publish.
+      - name: Check for new release
+        id: check
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          if git tag --points-at HEAD | grep -q "^v${VERSION}$"; then
+            echo "released=true" >> $GITHUB_OUTPUT
+          else
+            echo "released=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Publish
+        if: steps.check.outputs.released == 'true'
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   docs:
     name: Deploy docs
