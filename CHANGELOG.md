@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/side-xp/node-facile/compare/v1.0.0...v1.0.1) (2026-04-20)
+
+
+### Bug Fixes
+
+* fix attempt for GitHub Packages in CI ([f98cbaf](https://github.com/side-xp/node-facile/commit/f98cbafd8cc340df504cbd91190d7ad0cbcf6201))
+
 # 1.0.0 (2026-04-20)
 
 
