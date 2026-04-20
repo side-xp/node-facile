@@ -1,0 +1,63 @@
+# This is a reusable workflow that runs the core validation steps: lint, build, test, and coverage.
+# Called by validate.yml, develop.yml, and main.yml.
+#
+# Inputs:
+#   extended: also runs attw and publint to verify the package is publish-ready (default: false)
+#   retention-days: how long to keep the coverage artifact (default: 7 days)
+
+name: Checks
+
+on:
+  workflow_call:
+    inputs:
+      extended:
+        description: Also run attw and publint
+        type: boolean
+        default: false
+      retention-days:
+        description: Coverage artifact retention in days
+        type: number
+        default: 7
+
+jobs:
+  checks:
+    name: Checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+        env:
+          HUSKY: 0
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm run coverage
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v7
+        with:
+          name: coverage-report
+          path: coverage/
+          retention-days: ${{ inputs.retention-days }}
+
+      - name: Check exports (attw)
+        if: inputs.extended
+        run: npm run attw
+
+      - name: Check package (publint)
+        if: inputs.extended
+        run: npm run publint
