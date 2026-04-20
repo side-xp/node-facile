@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Lightweight JavaScript & Node utilities. ",
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "keywords": [
     "js",
