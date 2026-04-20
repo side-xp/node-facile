@@ -1,9 +1,9 @@
 {
-  "name": "@side-xp/facilejs",
+  "name": "@side-xp/facile",
   "version": "0.0.0",
   "description": "Lightweight JavaScript & Node utilities. ",
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "keywords": [
     "js",
@@ -13,6 +13,9 @@
     "easy",
     "simple"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "dist",
     "README.md",
@@ -20,14 +23,19 @@
   ],
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "types": "./dist/index.d.ts"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     }
   },
+  "main": "./dist/index.cjs",
   "jsdelivr": "./dist/index.iife.js",
   "unpkg": "./dist/index.iife.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "homepage": "https://github.com/side-xp/node-facile#readme",
   "bugs": {
     "url": "https://github.com/side-xp/node-facile/issues"
@@ -48,7 +56,11 @@
     "coverage": "vitest run --coverage",
     "prepare": "husky",
     "publint": "publint",
-    "attw": "attw --pack ."
+    "attw": "attw --pack .",
+    "docs:api": "typedoc && node scripts/docs.js",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "npm run docs:api && npm run docs:dev",
+    "docs:preview": "npm run docs:build && vitepress preview docs"
   },
   "lint-staged": {
     "**/*.{js,ts,jsx,tsx,json,jsonc}": [
@@ -66,6 +78,7 @@
     "@semantic-release/github": "^12.0.6",
     "@semantic-release/npm": "^13.1.5",
     "@semantic-release/release-notes-generator": "^14.1.0",
+    "@side-xp/biome-config": "^1.0.0",
     "@vitest/coverage-v8": "^4.1.4",
     "husky": "^9.1.7",
     "jsdom": "^29.0.2",
@@ -73,7 +86,10 @@
     "publint": "^0.3.18",
     "semantic-release": "^25.0.3",
     "tsdown": "^0.21.8",
+    "typedoc": "^0.28.19",
+    "typedoc-plugin-markdown": "^4.11.0",
     "typescript": "^6.0.2",
+    "vitepress": "^1.6.4",
     "vitest": "^4.1.4"
   }
 }
