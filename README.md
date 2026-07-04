@@ -49,7 +49,7 @@ const { random } = require('@side-xp/facilejs')
 
 ## API documentation
 
-[=> https://side-xp.github.io/node-facile](https://side-xp.github.io/node-facile)
+[=> https://side-xp.github.io/node-facile/api](https://side-xp.github.io/node-facile/api)
 
 ---
 
