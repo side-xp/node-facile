@@ -1,3 +1,15 @@
+## [1.0.2](https://github.com/side-xp/node-facile/compare/v1.0.1...v1.0.2) (2026-07-04)
+
+
+### Bug Fixes
+
+* fixed Discord invitation ([f62cdf4](https://github.com/side-xp/node-facile/commit/f62cdf4ca1695c788188a092c78e90ba855a3ee3))
+
+
+### Reverts
+
+* Revert "fix: fix attempt for GitHub Packages in CI" ([71e9c71](https://github.com/side-xp/node-facile/commit/71e9c710dcbb16a3893d9032682b81bb5862caef))
+
 ## [1.0.1](https://github.com/side-xp/node-facile/compare/v1.0.0...v1.0.1) (2026-04-20)
 
 
